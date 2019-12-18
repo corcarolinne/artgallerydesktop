@@ -20,7 +20,6 @@ public class LoginModel {
     Connection connection = null;
     Statement stmt = null;
     
-    //private boolean isAdmin;
     
     // starting the DB connection and putting in everything in the variables declared above
     public LoginModel(){

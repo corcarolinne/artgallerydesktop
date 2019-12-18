@@ -52,7 +52,8 @@ public class LoginController implements ActionListener {
                 if(userLogged.isAdmin == true) {
                     System.out.println("Admin dashboard vai aqui");
                 } else {
-                    customerDashboardController = new CustomerDashboardController();
+                    //customerDashboardController = 
+                            new CustomerDashboardController();
                 }
                 
                 view.dispose();

@@ -1,7 +1,7 @@
 
 package CustomerDashboard;
 
-import Register.RegisterController;
+//import Register.RegisterController;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,21 +25,15 @@ public class CustomerDashboardView extends JFrame {
         
         // calling methods to make the window or the view
         attributesSetter();
-        components();
-        validation();    
-    }
+        //components();
+         
     
-    // method to set attributes
-    private void attributesSetter(){
-        this.setVisible(true);
-        this.setSize(400,400);
-        this.setTitle("Customer Dashboard");
-    }
     
     // method to organize components of the window
-    private void components(){
+    //private void components(){
         JPanel panel = new JPanel();
         this.add(panel);
+        
         
         // button for profile
         JButton profile = new JButton("Profile");
@@ -48,10 +42,15 @@ public class CustomerDashboardView extends JFrame {
         
         // array with data for table
         String[][] artData = null;
+        
+        
+        //System.out.println(artData);
         // table header
-        String[] header = {"Art ID", "Art", "Type", "Artist", "Artist Last Name"};
+        String[] header = {"Art ID", "Art", "ArtistFirst", "ArtistLast", "Type"};
     
-        artData = controller.model.showArtTable();
+        System.out.println(header); 
+        artData = controller.model.printArt();
+        
         
         // table
         JTable artTable = new JTable(artData, header);
@@ -60,12 +59,23 @@ public class CustomerDashboardView extends JFrame {
         // scroll
         JScrollPane scroll = new JScrollPane(artTable);
         panel.add(scroll);
+        
+        panel.add(profile);
            
+         validation();  
     }
-    
+   
+    // method to set attributes
+    private void attributesSetter(){
+        this.setVisible(true);
+        this.setSize(400,400);
+        this.setTitle("Customer Dashboard");
+    }
     // validation and repainting
     private void validation(){
         this.validate();
         this.repaint();
     }
+
+    
 }
