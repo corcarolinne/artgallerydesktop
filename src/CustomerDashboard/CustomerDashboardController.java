@@ -12,13 +12,8 @@ public class CustomerDashboardController implements ActionListener {
     CustomerDashboardView view;
     
     public CustomerDashboardController(){
-        System.out.println("entrou no CONT");
-        
         model = new CustomerDashboardModel();
-        view = new CustomerDashboardView(this);
-        
-        
-        
+        view = new CustomerDashboardView(this);  
         
     }
 

@@ -25,12 +25,21 @@ public class CustomerDashboardView extends JFrame {
         
         // calling methods to make the window or the view
         attributesSetter();
-        //components();
+        components();
+        validation();
          
     
+    }
+    
+    // method to set attributes
+    private void attributesSetter(){
+        this.setVisible(true);
+        this.setSize(500,500);
+        this.setTitle("Customer Dashboard");
+    }
     
     // method to organize components of the window
-    //private void components(){
+    private void components(){
         JPanel panel = new JPanel();
         this.add(panel);
         
@@ -39,18 +48,15 @@ public class CustomerDashboardView extends JFrame {
         JButton profile = new JButton("Profile");
         profile.addActionListener((ActionListener) controller);
         profile.setActionCommand("view-profile");
+         panel.add(profile);
         
         // array with data for table
         String[][] artData = null;
-        
-        
-        //System.out.println(artData);
         // table header
-        String[] header = {"Art ID", "Art", "ArtistFirst", "ArtistLast", "Type"};
+        String[] header = {"Art", "ArtistFirst", "ArtistLast", "Type"};
     
-        System.out.println(header); 
-        artData = controller.model.printArt();
-        
+        // calling method from model 
+        artData = controller.model.showArtTable();
         
         // table
         JTable artTable = new JTable(artData, header);
@@ -59,18 +65,10 @@ public class CustomerDashboardView extends JFrame {
         // scroll
         JScrollPane scroll = new JScrollPane(artTable);
         panel.add(scroll);
-        
-        panel.add(profile);
            
          validation();  
     }
    
-    // method to set attributes
-    private void attributesSetter(){
-        this.setVisible(true);
-        this.setSize(400,400);
-        this.setTitle("Customer Dashboard");
-    }
     // validation and repainting
     private void validation(){
         this.validate();

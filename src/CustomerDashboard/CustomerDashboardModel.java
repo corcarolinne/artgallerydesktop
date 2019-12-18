@@ -1,6 +1,7 @@
 
 package CustomerDashboard;
 
+import Login.LoginModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,98 +9,125 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//import Login.User;
+
 
 public class CustomerDashboardModel {
     
+    // properties
+    String dbServer = "jdbc:mysql://localhost:3306/carol_2018250"; // type of database/port/database name
+    String user = "root";
+    String password = "13 Hatnephfcfati_";
+    Connection connection = null;
+    Statement stmt = null;
     
+    //private boolean isAdmin;
     
-           
-        public String[][] printArt(){
+    // starting the DB connection and putting in everything in the variables declared above
+    public CustomerDashboardModel(){
+        
+        try{
+            // get a connection with the database
+            connection = DriverManager.getConnection(dbServer, user, password);
+
+            // get a statement from the connection
+            stmt = connection.createStatement();
             
-            String[][] result = null;
-            try{
-			// Load the database driver
-			//Class.forName("com.mysql.jdbc.Driver").newInstance() ;
-			
-			String dbServer = "jdbc:mysql://localhost:3306/carol_2018250";
-			String user = "root";
-			String password = "13 Hatnephfcfati_";
-                        
+            System.out.println("entrou no construtor");
+
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+        
+    }
     
-                        
-                        
-                        
-			String query = "SELECT * FROM arts";
-                        String query2 = "SELECT * FROM arts inner join artists ON arts.ArtistID = artists.ArtistID;";
-                        
-//art.Piece_Name, art.Type, artist.First_name, artist.Last_name    
-			// Get a connection to the database
-			Connection conn = DriverManager.getConnection(dbServer, user, password) ;
+  
+    public String[][] showArtTable(){
+        
+        // declaring result 2d array with data
+        
+         String[][] artData = null;
+        
+        
+        try{
+            // building the queries
+            String checkNumOfRows = "SELECT * FROM carol_2018250.arts";
+            String query = "SELECT arts.ArtID, arts.Title, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID ORDER BY arts.ArtID;";
 
-			// Get a statement from the connection
-			Statement stmt = conn.createStatement() ;
-
-			// Execute the query
-			ResultSet rs = stmt.executeQuery(query) ;
-                        
-                        int rows = 0;
-                        
-                        System.out.println(rows);
-                        while(rs.next()){
-                            rows++;
-                            
-                        }
-			
-                        ResultSet rs2 = stmt.executeQuery(query2) ;
-                        result = new String[rows][5];
-                        
-			int jb = 0;
-                        
-                        
-                        
-                        
-			// Loop through the result set
-			while(rs2.next()) {
-                            
-                                
-                                result[jb][0] = rs2.getString("ArtID");
-				result[jb][1] = rs2.getString("Title");
-                                result[jb][2] = rs2.getString("ArtType");
-                                result[jb][3] = rs2.getString("FirstName");
-                                result[jb][4] = rs2.getString("LastName");
-                                
-                                
-                                
-                               // result[jb] = rs.getString("first_name");
-                                jb++;
-			}
-
-			// Close the result set, statement and the connection
-			rs.close() ;
-			stmt.close() ;
-			conn.close() ;
-		}
-		catch( SQLException se ){
-			System.out.println( "SQL Exception:" ) ;
-
-			// Loop through the SQL Exceptions
-			while( se != null ){
-				System.out.println( "State  : " + se.getSQLState()  ) ;
-				System.out.println( "Message: " + se.getMessage()   ) ;
-				System.out.println( "Error  : " + se.getErrorCode() ) ;
-
-				se = se.getNextException() ;
-			}
-		}
-		catch( Exception e ){
-			System.out.println( e ) ;
-		}
-                return result;
+            // sending the query to the database
+            ResultSet resultNumOfRows = stmt.executeQuery(checkNumOfRows) ;
             
+            int numOfRows = 0;       
+            // while we have rows, or while next() returns true
+            while(resultNumOfRows.next()) {
+                // add one to rows
+                numOfRows++;
+            }
+
+
+            System.out.println("entrou no try");
+            ResultSet result = stmt.executeQuery(query) ;
+            // set artData number of rows and number of columns
+            artData= new String[numOfRows][4];
+
+            int row = 0;
+            // loop through result, while it's returns true (while there's lines in art table)
+            while(result.next()) {
+                // set artData array to receive each value from each row, for each corresponding column
+                //artData1[row][0] = result.getString("ArtID");
+                artData[row][0] = result.getString("Title");
+                artData[row][1] = result.getString("FirstName");
+                artData[row][2] = result.getString("LastName");
+                artData[row][3] = result.getString("ArtType");
+
+               // increase row to try to populate the next row
+                row++;
+            }
             
-            
-            
+            // close the result set
+            result.close();
+            // calling the method in charge of closing the connections
+            closings();       
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+                
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+        return artData;
+    }
+    
+    // Separeating closing statements for better code structure
+    private void closings(){
+        try {            
+            stmt.close();
+            connection.close();
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(LoginModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
