@@ -128,4 +128,72 @@ public class AdminDashboardModel {
         }
     }
     
+    public String[][] showAdminTable(){
+        
+        // declaring result 2d array with data
+        
+         String[][] adminData = null;
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+
+            // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            // building the queries
+            String checkNumOfRows = "SELECT * FROM carol_2018250.users WHERE isAdmin = 1";
+            String query = "SELECT users.UserID, users.FirstName, users.LastName, users.Username, users.Address, users.Email FROM carol_2018250.users WHERE isAdmin = 1";
+
+            // sending the query to the database
+            ResultSet resultNumOfRows = stmt.executeQuery(checkNumOfRows) ;
+            
+            int numOfRows = 0;       
+            // while we have rows, or while next() returns true
+            while(resultNumOfRows.next()) {
+                // add one to rows
+                numOfRows++;
+            }
+
+            ResultSet result = stmt.executeQuery(query) ;
+            // set artData number of rows and number of columns
+            adminData= new String[numOfRows][6];
+
+            int row = 0;
+            // loop through result, while it's returns true (while there's lines in art table)
+            while(result.next()) {
+                // set artData array to receive each value from each row, for each corresponding column
+                adminData[row][0] = result.getString("UserID");
+                adminData[row][1] = result.getString("FirstName");
+                adminData[row][2] = result.getString("LastName");
+                adminData[row][3] = result.getString("Username");
+                adminData[row][4] = result.getString("Address");
+                adminData[row][5] = result.getString("Email");
+
+               // increase row to try to populate the next row
+                row++;
+            }
+            
+            // close the result set
+            result.close();
+            // calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();     
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+                
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+        return adminData;
+    }
+
+    
 }

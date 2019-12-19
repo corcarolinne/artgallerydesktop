@@ -8,8 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+//import javax.swing.event.TableModelListener;
 
-public class AdminDashboardView extends JFrame{
+public class AdminDashboardView extends JFrame {
    
     // controller
     private AdminDashboardController controller;
@@ -51,21 +52,29 @@ public class AdminDashboardView extends JFrame{
         
         
         
-        // array with data for table
+        // array with data for tables
         String[][] artData = null;
+         String[][] adminData = null;
         // table header
         String[] header = {"Art", "ArtistFirst", "ArtistLast", "Type"};
+        String[] header2 = {"UserID","FirstName", "LastName", "Username", "Address", "Email"};
     
         // calling method from model 
         artData = controller.model.showArtTable();
+        adminData = controller.model.showAdminTable();
         
         // table
         JTable artTable = new JTable(artData, header);
         panel.add(artTable);
+        JTable adminTable = new JTable(adminData, header2);
+        panel.add(adminTable);
+        
         
         // scroll
         JScrollPane scroll = new JScrollPane(artTable);
+        JScrollPane scroll2 = new JScrollPane(adminTable);
         panel.add(scroll);
+        panel.add(scroll2);
            
          validation();  
     }
