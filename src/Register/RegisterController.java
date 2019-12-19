@@ -29,7 +29,7 @@ public class RegisterController implements ActionListener {
         // When the button is clicked...
         if(e.getActionCommand().equals("register")){
             
-        // getting values from view
+        // getting values from view  
         String firstName = view.getFirstName();    
         String lastName = view.getLastName();  
         String username = view.getUsername();
@@ -43,11 +43,8 @@ public class RegisterController implements ActionListener {
         // create a model for 
         model.register(newUser);
         new LoginController();
-        
-        
-            
             
         }
-    }
+   }
     
 }

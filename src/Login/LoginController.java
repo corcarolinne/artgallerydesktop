@@ -11,17 +11,19 @@ import java.awt.event.ActionListener;
 // The controller will have the action listener and will be the brain of the application, making the connection between model and view
 public class LoginController implements ActionListener {
     
-    // reference to all the other elements in the login
-    LoginModel model;
-    LoginView view;
-    RegisterController registerController;
-    CustomerDashboardController customerDashboardController;
+    // creating properties that are also classes
+    private LoginModel model;
+    private LoginView view;
+    private RegisterController registerController;
+    private CustomerDashboardController customerDashboardController;
+    private User userLogged;
     
     // constructor to create a new view
      public LoginController(){
-        view = new LoginView(this);
         // creating a new connection to the DB
-        model = new LoginModel();
+        this.model = new LoginModel();
+        // putting values inside these properties, calling construtors
+        this.view = new LoginView(this);
     }
 
      
@@ -35,28 +37,28 @@ public class LoginController implements ActionListener {
         // When the button is clicked
         if(e.getActionCommand().equals("login")){
             
-            // We get username and password from the view
-        String username = view.getUsername();
-        String password = view.getPassword();
+            // We get username and password from the view 
+            // This is from the text field input, not the user object
+            String username = view.getUsername();
+            String password = view.getPassword();
 
-        // Create an instance of the user class with the data collated
-        User userLogged = new User(null, null, username, null, null, password, false);
+            // Create an instance of the user class with the data collected
+            this.userLogged = new User(username, password);
 
             // Ask the model if the user is valid
             boolean login = model.login(userLogged);
-            
+
             // if the it is valid, show the welcome screen and close the login
             if(login){
                 System.out.println("Login Sucessful");
-                
-                if(userLogged.isAdmin == true) {
+
+                if(userLogged.getIsAdmin() == true) {
                     System.out.println("Admin dashboard vai aqui");
                 } else {
-                    //customerDashboardController = 
-                            new CustomerDashboardController();
+                    this.customerDashboardController = new CustomerDashboardController(userLogged);
                 }
-                
-                view.dispose();
+
+                this.view.dispose();
             }
         }
         // When the button is clicked...
@@ -71,6 +73,14 @@ public class LoginController implements ActionListener {
             
             
         }
+    }
+    
+    public User getUserLogged () {
+        return this.userLogged;
+    }
+    
+    public LoginView getView () {
+        return this.view;
     }
     
 }

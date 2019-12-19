@@ -19,16 +19,18 @@ public class CustomerDashboardView extends JFrame {
     
     // constructor receives a Controller class
     public CustomerDashboardView(CustomerDashboardController controller) {
-        
         // Putting the reference of the controller in the local reference
         this.controller= controller;
-        
+        // calling methods to make the window or the view
+        this.showView();
+         
+    }
+    
+    public void showView() {
         // calling methods to make the window or the view
         attributesSetter();
         components();
         validation();
-         
-    
     }
     
     // method to set attributes
@@ -44,11 +46,13 @@ public class CustomerDashboardView extends JFrame {
         this.add(panel);
         
         
-        // button for profile
+        // button to go to profile page
         JButton profile = new JButton("Profile");
         profile.addActionListener((ActionListener) controller);
-        profile.setActionCommand("view-profile");
-         panel.add(profile);
+        profile.setActionCommand("profile");
+        panel.add(profile);
+        
+        
         
         // array with data for table
         String[][] artData = null;

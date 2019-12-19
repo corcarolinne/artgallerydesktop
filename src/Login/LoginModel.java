@@ -58,6 +58,7 @@ public class LoginModel {
         
         try{
             // building the query
+            // these gets are from the user
             String query = "SELECT * FROM users WHERE Username = '" + userLogged.getUsername() + "' AND Pass = '" + userLogged.getPassword() + "';";
 
             // Sending the query to the database
@@ -69,7 +70,14 @@ public class LoginModel {
             login = result.next();
             
             // saving values from isAdmin column to check if user is an admin or not
-            userLogged.isAdmin = result.getBoolean("IsAdmin");
+            userLogged.setIsAdmin(result.getBoolean("IsAdmin"));
+            userLogged.setUserID(result.getInt("UserID"));
+            userLogged.setFirstName(result.getString("FirstName"));
+            userLogged.setLastName(result.getString("LastName"));
+            userLogged.setUsername(result.getString("Username"));
+            userLogged.setAddress(result.getString("Address"));
+            userLogged.setEmail(result.getString("Email"));
+            userLogged.setPassword(result.getString("Pass"));
 
             // Close the result set, statement and the connection
             result.close() ;

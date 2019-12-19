@@ -21,15 +21,12 @@ public class LoginView extends JFrame {
     
     // constructor receives a LoginController class
     public LoginView(LoginController controller) {
-        
         // Putting the reference of the controller in the local reference
-        this.controller= controller;
-        
+        this.controller = controller;
         // calling methods to make the window or the view
         attributesSetter();
         components();
         validation();
-        
     }
     
     // method to set attributes
