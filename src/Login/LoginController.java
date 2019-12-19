@@ -2,6 +2,7 @@
 package Login;
 
 
+import AdminDashboard.AdminDashboardController;
 import CustomerDashboard.CustomerDashboardController;
 import Entities.User;
 import Register.RegisterController;
@@ -16,6 +17,7 @@ public class LoginController implements ActionListener {
     private LoginView view;
     private RegisterController registerController;
     private CustomerDashboardController customerDashboardController;
+    private AdminDashboardController adminDashboardController;
     private User userLogged;
     
     // constructor to create a new view
@@ -53,7 +55,7 @@ public class LoginController implements ActionListener {
                 System.out.println("Login Sucessful");
 
                 if(userLogged.getIsAdmin() == true) {
-                    System.out.println("Admin dashboard vai aqui");
+                    this.adminDashboardController = new AdminDashboardController(userLogged);
                 } else {
                     this.customerDashboardController = new CustomerDashboardController(userLogged);
                 }

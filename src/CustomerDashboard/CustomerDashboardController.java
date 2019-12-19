@@ -11,7 +11,7 @@ public class CustomerDashboardController implements ActionListener {
     // This class has to have a reference to all elements of the program
     public CustomerDashboardModel model;
     CustomerDashboardView view;
-    CustomerProfileUpdate profileUpdate;
+    CustomerProfileView profileUpdate;
     User userLogged;
     
     public CustomerDashboardController(User userLogged){
@@ -24,7 +24,7 @@ public class CustomerDashboardController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         
         if(e.getActionCommand().equals("profile")){
-            profileUpdate = new CustomerProfileUpdate(this, this.userLogged);
+            profileUpdate = new CustomerProfileView(this, this.userLogged);
 //            view.dispose();
         } else if (e.getActionCommand().equals("update-profile")) {
             // getting values from view  

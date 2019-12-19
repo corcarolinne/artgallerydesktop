@@ -1,6 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package AdminDashboard;
 
-package CustomerDashboard;
-
+//import CustomerDashboard.CustomerDashboardController;
 import Entities.User;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -10,8 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class CustomerProfileUpdate extends JFrame {
-    
+/**
+ *
+ * @author corca
+ */
+public class AdminProfileView extends JFrame {
+
     // creating properties to make values accesible for other parts of the program
     private JTextField firstNameTextField;
     private JTextField lastNameTextField;
@@ -24,10 +33,10 @@ public class CustomerProfileUpdate extends JFrame {
     //private User loggedUser;
     
     // controller
-    private CustomerDashboardController controller;
+    private AdminDashboardController controller;
     
     // constructor receives a Controller class
-    public CustomerProfileUpdate(CustomerDashboardController controller, User userLogged) {
+    public AdminProfileView(AdminDashboardController controller, User userLogged) {
         
         // Putting the reference of the controller in the local reference
         this.controller= controller;
@@ -44,7 +53,7 @@ public class CustomerProfileUpdate extends JFrame {
     private void attributesSetter(){
         this.setVisible(true);
         this.setSize(400,400);
-        this.setTitle("Create Account");
+        this.setTitle("Profile");
     }
     
     // method to organize components of the window
