@@ -127,12 +127,14 @@ public class AdminDashboardModel {
                 System.out.println( e ) ;
         }
     }
+  
     
     public String[][] showAdminTable(){
         
         // declaring result 2d array with data
         
          String[][] adminData = null;
+         
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
 
@@ -157,6 +159,11 @@ public class AdminDashboardModel {
             adminData= new String[numOfRows][6];
 
             int row = 0;
+            
+            // User
+            User editUser = new User();
+            
+            
             // loop through result, while it's returns true (while there's lines in art table)
             while(result.next()) {
                 // set artData array to receive each value from each row, for each corresponding column

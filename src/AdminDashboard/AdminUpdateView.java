@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package AdminDashboard;
 
-//import CustomerDashboard.CustomerDashboardController;
 import Entities.User;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -16,8 +11,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 
-public class AdminProfileView extends JFrame {
-
+class AdminUpdateView extends JFrame {
+    
     // creating properties to make values accesible for other parts of the program
     private JTextField firstNameTextField;
     private JTextField lastNameTextField;
@@ -25,18 +20,18 @@ public class AdminProfileView extends JFrame {
     private JTextField emailTextField;
     private JTextField addressTextField;
     private JPasswordField passwordTextField;
-    private User userLogged;
     
+    private User editUser;
     
     // controller
     private AdminDashboardController controller;
     
     // constructor receives a Controller class
-    public AdminProfileView(AdminDashboardController controller, User userLogged) {
+    public AdminUpdateView(AdminDashboardController controller, User editUser) {
         
         // Putting the reference of the controller in the local reference
         this.controller= controller;
-        this.userLogged = userLogged;
+        this.editUser = editUser;
         
         // calling methods to make the window or the view
         attributesSetter();
@@ -49,7 +44,7 @@ public class AdminProfileView extends JFrame {
     private void attributesSetter(){
         this.setVisible(true);
         this.setSize(400,400);
-        this.setTitle("Profile");
+        this.setTitle("Update Administrator Account");
     }
     
     // method to organize components of the window
@@ -64,18 +59,18 @@ public class AdminProfileView extends JFrame {
         usernameLabel = new JLabel("Username");
         emailLabel = new JLabel("Email");
         addressLabel = new JLabel("Address");
-        passwordLabel = new JLabel("Password");        
-        firstNameTextField = new JTextField(this.userLogged.getFirstName(), 20);
-        lastNameTextField = new JTextField(this.userLogged.getLastName(), 20);
-        usernameTextField = new JTextField(this.userLogged.getUsername(), 20);
-        emailTextField = new JTextField(this.userLogged.getEmail(), 20);
-        addressTextField = new JTextField(this.userLogged.getAddress(), 20);
-        passwordTextField = new JPasswordField (this.userLogged.getPassword(), 20);
+        passwordLabel = new JLabel("Password");    
+        firstNameTextField = new JTextField(this.editUser.getFirstName(), 20);
+        lastNameTextField = new JTextField(this.editUser.getLastName(), 20);
+        usernameTextField = new JTextField(this.editUser.getUsername(), 20);
+        emailTextField = new JTextField(this.editUser.getEmail(), 20);
+        addressTextField = new JTextField(this.editUser.getAddress(), 20);
+        passwordTextField = new JPasswordField (this.editUser.getPassword(), 20);
         
         // creating Create Account button
-        JButton registerButton = new JButton("Update Profile");
+        JButton registerButton = new JButton("Update Record");
         registerButton.addActionListener((ActionListener) controller);
-        registerButton.setActionCommand("update-profile");
+        registerButton.setActionCommand("update-admin");
         
         // adding components to the panel
         panel.add(firstNameLabel);

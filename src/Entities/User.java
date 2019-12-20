@@ -17,6 +17,9 @@ public class User {
     private boolean isAdmin;
     
     // 2 ways to create an instance of this class
+    public User(){
+    }
+    // 2 ways to create an instance of this class
     public User(String username, String password){
         this.username = username;
         this.password = password;
