@@ -64,6 +64,12 @@ public class AdminDashboardView extends JFrame {
         update.setActionCommand("update-item");
         panel.add(update);
         
+        // button to go to profile page
+        JButton delete = new JButton("Delete");
+        delete.addActionListener((ActionListener) controller);
+        delete.setActionCommand("delete-item");
+        panel.add(delete);
+        
         
         // array with data for tables
         String[][] artData = null;
@@ -121,6 +127,7 @@ public class AdminDashboardView extends JFrame {
         this.repaint();
     }
     
+    // getter for adminTable
     public JTable getAdminTable() {
         return this.adminTable;
     }

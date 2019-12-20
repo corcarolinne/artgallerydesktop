@@ -17,6 +17,7 @@ public class AdminDashboardController implements ActionListener {
     AdminProfileView adminProfileView;
     User userLogged;
     User userToEdit;
+    User userToBeDeleted;
     AdminUpdateView adminUpdateView;
     
     public AdminDashboardController(User userLogged){
@@ -64,7 +65,12 @@ public class AdminDashboardController implements ActionListener {
             view.dispose();
             view = new AdminDashboardView(this);
             adminUpdateView.dispose();
+        } else if (e.getActionCommand().equals("delete-item")) {
+            this.userToBeDeleted = view.getSelectedUser();
+            model.deleteAdmin(userToBeDeleted);
         }
+        
+        
       
     }    
     

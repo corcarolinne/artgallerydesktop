@@ -202,5 +202,44 @@ public class AdminDashboardModel {
         return adminData;
     }
 
+    public void deleteAdmin(User userToBeDeleted) {
+        
+         // variable to define if the login is successful
+        //boolean update = false;
+        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
+        
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+
+            // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            // building the query
+            String query = "DELETE FROM carol_2018250.users WHERE UserID = '"+userToBeDeleted.getUserID() +"';";
+            
+            stmt.execute(query);
+
+            // Calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();
+           
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+        
+    }
+
     
 }
