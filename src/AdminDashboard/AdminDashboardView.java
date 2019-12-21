@@ -2,6 +2,7 @@
 package AdminDashboard;
 
 import CustomerDashboard.CustomerDashboardController;
+import Entities.Art;
 import Entities.User;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -15,9 +16,12 @@ import javax.swing.event.ListSelectionListener;
 
 public class AdminDashboardView extends JFrame {
    
-    // controller
+    // properties
     private AdminDashboardController controller;
     JPanel panel;
+    
+    private JTable artsTable;
+    String[][] artsData;
     
     private JTable adminTable;
     String[][] adminData;
@@ -34,6 +38,7 @@ public class AdminDashboardView extends JFrame {
          
     }
     
+    // show admin dashboard view calling the methods
     public void showView() {
         // calling methods to make the window or the view
         attributesSetter();
@@ -61,10 +66,16 @@ public class AdminDashboardView extends JFrame {
         panel.add(profile);
         
         // button to go to update data from table
-        JButton update = new JButton("Update");
+        JButton update = new JButton("Update Admin");
         update.addActionListener((ActionListener) controller);
         update.setActionCommand("update-item");
         panel.add(update);
+        
+        // button to go to update art page
+        JButton goToArtUpdate = new JButton("Update Art");
+        goToArtUpdate.addActionListener((ActionListener) controller);
+        goToArtUpdate.setActionCommand("go-to-art-update");
+        panel.add(goToArtUpdate);
         
         // button to delete data from table
         JButton delete = new JButton("Delete");
@@ -72,24 +83,13 @@ public class AdminDashboardView extends JFrame {
         delete.setActionCommand("delete-item");
         panel.add(delete);
         
-        
-        // array with data for art table
-        String[][] artData = null;
-        // table header
-        String[] header = {"Art", "ArtistFirst", "ArtistLast", "Type"};
-        // calling method from model
-        artData = controller.model.showArtTable();
-        // adding art table to panel
-        JTable artTable = new JTable(artData, header);
-        panel.add(artTable);
-        
-        
+        // calling methods to show tables
+        this.renderArtsTable();
         this.renderAdminTable();
-         this.renderArtistsTable();
-        
+        this.renderArtistsTable();
         
         // scroll
-        JScrollPane scroll = new JScrollPane(artTable);
+        JScrollPane scroll = new JScrollPane(artsTable);
         JScrollPane scroll2 = new JScrollPane(adminTable);
         JScrollPane scroll3 = new JScrollPane(artistsTable);
         panel.add(scroll);
@@ -97,6 +97,14 @@ public class AdminDashboardView extends JFrame {
         panel.add(scroll3);
            
         validation();  
+    }
+    
+     public void renderArtsTable() {
+        String[] headerArts = {"Art ID", "Art", "Artist ID", "Artist First Name", "Artist Last Name", "Type"};
+        artsData = controller.model.showArtTable();
+        JTable nextTable = new JTable(artsData, headerArts);
+        this.artsTable = nextTable;
+        this.panel.add(artsTable);
     }
     
     public void renderAdminTable() {
@@ -115,6 +123,8 @@ public class AdminDashboardView extends JFrame {
         this.artistsTable = nextTable;
         this.panel.add(artistsTable);
     }
+    
+    
     public User getSelectedUser() {
         User selectedUser = new User();
         int selectedUserIndex = adminTable.getSelectedRow();
@@ -133,6 +143,24 @@ public class AdminDashboardView extends JFrame {
         return selectedUser;
     }
     
+    public Art getSelectedArt() {
+        Art selectedArt = new Art();
+        int selectedArtIndex = artsTable.getSelectedRow();
+        
+        if (selectedArtIndex > -1) {
+            String[] selectedArtsArray = artsData[selectedArtIndex];
+            
+            selectedArt.setArtID(Integer.parseInt(selectedArtsArray[0]));
+            selectedArt.setTitle(selectedArtsArray[1]);
+            selectedArt.setArtistID(Integer.parseInt(selectedArtsArray[2]));
+            selectedArt.setArtistFirstName(selectedArtsArray[3]);
+            selectedArt.setArtistLastName(selectedArtsArray[4]);
+            selectedArt.setArtType(selectedArtsArray[5]);
+        
+        }
+        
+        return selectedArt;
+    }
    
     // validation and repainting
     private void validation(){

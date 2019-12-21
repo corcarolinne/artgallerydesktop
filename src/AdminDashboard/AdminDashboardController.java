@@ -1,6 +1,7 @@
 
 package AdminDashboard;
 
+import Entities.Art;
 import Entities.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,9 @@ public class AdminDashboardController implements ActionListener {
     User userToEdit;
     User userToBeDeleted;
     AdminUpdateView adminUpdateView;
+    ArtUpdateView artUpdateView;
+    Art artToEdit;
+    
     
     public AdminDashboardController(User userLogged){
         model = new AdminDashboardModel();
@@ -68,11 +72,24 @@ public class AdminDashboardController implements ActionListener {
         } else if (e.getActionCommand().equals("delete-item")) {
             this.userToBeDeleted = view.getSelectedUser();
             model.deleteAdmin(userToBeDeleted);
+        } else if(e.getActionCommand().equals("go-to-art-update")) {
+            this.artToEdit = view.getSelectedArt();
+            artUpdateView = new ArtUpdateView(this, artToEdit);
+        } else if (e.getActionCommand().equals("update-art")) {
+            String title = artUpdateView.getArtTitle();
+            String artistIDString = artUpdateView.getArtistID();
+            int artistID = Integer.parseInt(artistIDString);
+            String type = artUpdateView.getArtType();
+
+            // Create an instance of the user class with the data collated
+            Art editArt = new Art(title, artistID, type);
+            
+            this.model.updateArt(editArt, this.artToEdit);
+            view.dispose();
+            view = new AdminDashboardView(this);
+            artUpdateView.dispose();
         }
-        
-        
-      
-    }    
+    }   
     
     public AdminDashboardView getView() {
         return this.view;
