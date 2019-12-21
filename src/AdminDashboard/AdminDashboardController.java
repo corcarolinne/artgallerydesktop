@@ -22,7 +22,9 @@ public class AdminDashboardController implements ActionListener {
     User userToBeDeleted;
     AdminUpdateView adminUpdateView;
     Art artToEdit;
+    Art artToBeDeleted;
     Artist artistToEdit;
+    Artist artistToBeDeleted;
     ArtUpdateView artUpdateView;
     ArtistUpdateView artistUpdateView;
     
@@ -75,6 +77,12 @@ public class AdminDashboardController implements ActionListener {
         } else if (e.getActionCommand().equals("delete-item")) {
             this.userToBeDeleted = view.getSelectedUser();
             model.deleteAdmin(userToBeDeleted);
+        } else if (e.getActionCommand().equals("delete-art")) {
+            this.artToBeDeleted = view.getSelectedArt();
+            model.deleteArt(artToBeDeleted);
+        } else if (e.getActionCommand().equals("delete-artist")) {
+            this.artistToBeDeleted = view.getSelectedArtist();
+            model.deleteArtist(artistToBeDeleted);
         } else if(e.getActionCommand().equals("go-to-art-update")) {
             this.artToEdit = view.getSelectedArt();
             artUpdateView = new ArtUpdateView(this, artToEdit);

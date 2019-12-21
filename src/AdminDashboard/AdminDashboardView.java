@@ -90,6 +90,18 @@ public class AdminDashboardView extends JFrame {
         delete.setActionCommand("delete-item");
         panel.add(delete);
         
+        // button to delete art from table
+        JButton deleteArt = new JButton("Delete Art");
+        deleteArt.addActionListener((ActionListener) controller);
+        deleteArt.setActionCommand("delete-art");
+        panel.add(deleteArt);
+        
+        // button to delete art from table
+        JButton deleteArtist = new JButton("Delete Artist");
+        deleteArtist.addActionListener((ActionListener) controller);
+        deleteArtist.setActionCommand("delete-artist");
+        panel.add(deleteArtist);
+        
         // calling methods to show tables
         this.renderArtsTable();
         this.renderAdminTable();

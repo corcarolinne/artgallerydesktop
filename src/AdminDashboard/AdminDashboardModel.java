@@ -332,6 +332,110 @@ public class AdminDashboardModel {
         
     }
     
+    public void deleteArt(Art artToBeDeleted) {
+        
+         // variable to define if the login is successful
+        //boolean update = false;
+        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
+        
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+
+            // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            // building the query
+            String query = "SELECT * FROM carol_2018250.favourites WHERE ArtID = '"+artToBeDeleted.getArtID() +"';";
+            String query2 = "DELETE FROM carol_2018250.favourites WHERE ArtID = '"+artToBeDeleted.getArtID() +"';";
+            String query3 = "DELETE FROM carol_2018250.arts WHERE ArtID = '"+artToBeDeleted.getArtID() +"';";
+            
+            if(stmt.execute(query)) {
+                stmt.execute(query2);
+                stmt.execute(query3);
+            } else {
+                stmt.execute(query2);
+            }
+           
+            
+            
+
+            // Calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();
+           
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+        
+    }
+    public void deleteArtist(Artist artistToBeDeleted) {
+        
+         // variable to define if the login is successful
+        //boolean update = false;
+        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
+        
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+
+            // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            // building the query
+            String select_arts_from_artist = "SELECT * from carol_2018250.arts WHERE artistID='"+artistToBeDeleted.getArtistID() +"';";
+            
+            // sending the query to the database
+            ResultSet artsFromArtist = stmt.executeQuery(select_arts_from_artist) ;
+            
+            String query = "DELETE FROM carol_2018250.artists WHERE ArtistID = '"+artistToBeDeleted.getArtistID() +"';";
+            //String query3 = "DELETE FROM carol_2018250.arts WHERE ArtID = '"+artistToBeDeleted.getArtID() +"';";
+            
+            while(artsFromArtist.next()) {
+               
+                String artIDString = artsFromArtist.getString("ArtID");
+                int artID = Integer.parseInt(artIDString);	 
+                Art artToBeDeleted =  new Art(artID);
+                deleteArt(artToBeDeleted);
+                
+            } 
+            stmt.execute(query) ;
+           
+            
+            
+
+            // Calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();
+           
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+        
+    }
+    
     public String[][] showArtistsTable(){
         
         // declaring result 2d array with data
