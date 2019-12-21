@@ -99,12 +99,18 @@ public class AdminDashboardController implements ActionListener {
         } else if (e.getActionCommand().equals("delete-item")) {
             this.userToBeDeleted = view.getSelectedUser();
             model.deleteAdmin(userToBeDeleted);
+             view.dispose();
+            view = new AdminDashboardView(this);
         } else if (e.getActionCommand().equals("delete-art")) {
             this.artToBeDeleted = view.getSelectedArt();
             model.deleteArt(artToBeDeleted);
+             view.dispose();
+            view = new AdminDashboardView(this);
         } else if (e.getActionCommand().equals("delete-artist")) {
             this.artistToBeDeleted = view.getSelectedArtist();
             model.deleteArtist(artistToBeDeleted);
+            view.dispose();
+            view = new AdminDashboardView(this);
         } else if(e.getActionCommand().equals("go-to-art-update")) {
             this.artToEdit = view.getSelectedArt();
             artUpdateView = new ArtUpdateView(this, artToEdit);
