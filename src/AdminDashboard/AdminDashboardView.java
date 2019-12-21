@@ -18,10 +18,12 @@ public class AdminDashboardView extends JFrame {
     // controller
     private AdminDashboardController controller;
     JPanel panel;
+    
     private JTable adminTable;
+    String[][] adminData;
     
-     String[][] adminData;
-    
+    private JTable artistsTable;
+    String[][] artistsData;
     
     // constructor receives a Controller class
     public AdminDashboardView(AdminDashboardController controller) {
@@ -58,50 +60,61 @@ public class AdminDashboardView extends JFrame {
         profile.setActionCommand("admin-profile");
         panel.add(profile);
         
-        // button to go to profile page
+        // button to go to update data from table
         JButton update = new JButton("Update");
         update.addActionListener((ActionListener) controller);
         update.setActionCommand("update-item");
         panel.add(update);
         
-        // button to go to profile page
+        // button to delete data from table
         JButton delete = new JButton("Delete");
         delete.addActionListener((ActionListener) controller);
         delete.setActionCommand("delete-item");
         panel.add(delete);
         
         
-        // array with data for tables
+        // array with data for art table
         String[][] artData = null;
         // table header
         String[] header = {"Art", "ArtistFirst", "ArtistLast", "Type"};
-    
-        // calling method from model 
+        // calling method from model
         artData = controller.model.showArtTable();
+        // adding art table to panel
         JTable artTable = new JTable(artData, header);
         panel.add(artTable);
         
         
         this.renderAdminTable();
+         this.renderArtistsTable();
         
         
         // scroll
         JScrollPane scroll = new JScrollPane(artTable);
         JScrollPane scroll2 = new JScrollPane(adminTable);
+        JScrollPane scroll3 = new JScrollPane(artistsTable);
         panel.add(scroll);
         panel.add(scroll2);
+        panel.add(scroll3);
            
         validation();  
     }
     
     public void renderAdminTable() {
-        String[] header2 = {"UserID","FirstName", "LastName", "Username", "Address", "Email"};
+        String[] headerAdmin = {"UserID","FirstName", "LastName", "Username", "Address", "Email"};
         adminData = controller.model.showAdminTable();
-        JTable nextTable = new JTable(adminData, header2);
+        JTable nextTable = new JTable(adminData, headerAdmin);
         this.adminTable = nextTable;
         this.panel.add(adminTable);
     }
     
+     
+    public void renderArtistsTable() {
+        String[] headerArtists = {"ArtistID","FirstName", "LastName", "Address", "Website"};
+        artistsData = controller.model.showArtistsTable();
+        JTable nextTable = new JTable(artistsData, headerArtists);
+        this.artistsTable = nextTable;
+        this.panel.add(artistsTable);
+    }
     public User getSelectedUser() {
         User selectedUser = new User();
         int selectedUserIndex = adminTable.getSelectedRow();
@@ -130,5 +143,10 @@ public class AdminDashboardView extends JFrame {
     // getter for adminTable
     public JTable getAdminTable() {
         return this.adminTable;
+    }
+    
+     // getter for artistsTable
+    public JTable getArtistsTable() {
+        return this.artistsTable;
     }
 }

@@ -240,6 +240,75 @@ public class AdminDashboardModel {
         }
         
     }
+    
+    public String[][] showArtistsTable(){
+        
+        // declaring result 2d array with data
+        
+         String[][] artistsData = null;
+         
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+
+            // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            // building the queries
+            String checkNumOfRows = "SELECT * FROM carol_2018250.artists";
+            String query = "SELECT * FROM carol_2018250.artists";
+
+            // sending the query to the database
+            ResultSet resultNumOfRows = stmt.executeQuery(checkNumOfRows) ;
+            
+            int numOfRows = 0;       
+            // while we have rows, or while next() returns true
+            while(resultNumOfRows.next()) {
+                // add one to rows
+                numOfRows++;
+            }
+
+            ResultSet result = stmt.executeQuery(query) ;
+            // set artData number of rows and number of columns
+            artistsData= new String[numOfRows][5];
+
+            int row = 0;
+            
+            
+            // loop through result, while it's returns true (while there's lines in art table)
+            while(result.next()) {
+                // set artData array to receive each value from each row, for each corresponding column
+                artistsData[row][0] = result.getString("ArtistID");
+                artistsData[row][1] = result.getString("FirstName");
+                artistsData[row][2] = result.getString("LastName");
+                artistsData[row][3] = result.getString("Address");
+                artistsData[row][4] = result.getString("Website");
+
+               // increase row to try to populate the next row
+                row++;
+            }
+            
+            // close the result set
+            result.close();
+            // calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();     
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+                
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+        return artistsData;
+    }
 
     
 }
