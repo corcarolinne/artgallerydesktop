@@ -2,6 +2,7 @@
 package AdminDashboard;
 
 import Entities.Art;
+import Entities.Artist;
 import Entities.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -176,7 +177,49 @@ public class AdminDashboardModel {
         }
     }
   
-    
+    public void updateArtist(Artist artistToBeEdited, Artist artistSelected ){
+        
+        // variable to define if the login is successful
+        //boolean update = false;
+        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
+        
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+
+            // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            // building the query
+            String query = "UPDATE carol_2018250.artists SET FirstName= '"+artistToBeEdited.getFirstName()+"', LastName= '"+artistToBeEdited.getLastName()+"', Address= '"+artistToBeEdited.getAddress()+"', Website= '"+artistToBeEdited.getWebsite()+"' WHERE ArtistID = '"+artistSelected.getArtistID() +"';"; 
+            
+            stmt.execute(query);
+
+            // Calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();
+            
+            artistSelected.setFirstName(artistToBeEdited.getFirstName());
+            artistSelected.setLastName(artistToBeEdited.getLastName());
+            artistSelected.setAddress(artistToBeEdited.getAddress());
+            artistSelected.setWebsite(artistToBeEdited.getWebsite());
+            
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+    }
+  
     public String[][] showAdminTable(){
         
         // declaring result 2d array with data
@@ -357,6 +400,10 @@ public class AdminDashboardModel {
         }
         return artistsData;
     }
+
+
+
+    
 
     
 }

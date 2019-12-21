@@ -3,6 +3,7 @@ package AdminDashboard;
 
 import CustomerDashboard.CustomerDashboardController;
 import Entities.Art;
+import Entities.Artist;
 import Entities.User;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -76,6 +77,12 @@ public class AdminDashboardView extends JFrame {
         goToArtUpdate.addActionListener((ActionListener) controller);
         goToArtUpdate.setActionCommand("go-to-art-update");
         panel.add(goToArtUpdate);
+        
+        // button to go to update art page
+        JButton goToArtistUpdate = new JButton("Update Artist");
+        goToArtistUpdate.addActionListener((ActionListener) controller);
+        goToArtistUpdate.setActionCommand("go-to-artist-update");
+        panel.add(goToArtistUpdate);
         
         // button to delete data from table
         JButton delete = new JButton("Delete");
@@ -160,6 +167,25 @@ public class AdminDashboardView extends JFrame {
         }
         
         return selectedArt;
+    }
+    
+     public Artist getSelectedArtist() {
+        Artist selectedArtist = new Artist();
+        int selectedArtistIndex = artistsTable.getSelectedRow();
+        
+        if (selectedArtistIndex > -1) {
+            String[] selectedArtsArray = artistsData[selectedArtistIndex];
+            
+            selectedArtist.setArtistID(Integer.parseInt(selectedArtsArray[0]));
+            selectedArtist.setFirstName(selectedArtsArray[1]);
+            selectedArtist.setLastName(selectedArtsArray[2]);
+            selectedArtist.setAddress(selectedArtsArray[3]);
+            selectedArtist.setWebsite(selectedArtsArray[4]);
+            
+        
+        }
+        
+        return selectedArtist;
     }
    
     // validation and repainting
