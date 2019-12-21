@@ -52,7 +52,11 @@ public class CustomerDashboardView extends JFrame {
         profile.setActionCommand("profile");
         panel.add(profile);
         
-        
+        // button to go to profile page
+        JButton logout = new JButton("Logout");
+        logout.addActionListener((ActionListener) controller);
+        logout.setActionCommand("logout");
+        panel.add(logout);
         
         // array with data for table
         String[][] artData = null;

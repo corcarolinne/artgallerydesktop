@@ -4,6 +4,7 @@ package AdminDashboard;
 import Entities.Art;
 import Entities.Artist;
 import Entities.User;
+import Login.LoginController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTable;
@@ -16,6 +17,7 @@ public class AdminDashboardController implements ActionListener {
     // This class has to have a reference to all elements of the program
     public AdminDashboardModel model;
     AdminDashboardView view;
+    LoginController login;
     AdminProfileView adminProfileView;
     ArtCreateView artCreateView;
     ArtistCreateView artistCreateView;
@@ -44,7 +46,11 @@ public class AdminDashboardController implements ActionListener {
         if(e.getActionCommand().equals("admin-profile")){
             adminProfileView = new AdminProfileView(this, this.userLogged);
 //            view.dispose();
-        }  else if(e.getActionCommand().equals("go-to-art-create")) {
+        }else if(e.getActionCommand().equals("logout")){
+            login = new LoginController();
+            view.dispose();
+        }
+        else if(e.getActionCommand().equals("go-to-art-create")) {
            artCreateView = new ArtCreateView(this);  
         }  if(e.getActionCommand().equals("create-art")){
         // getting values from view  

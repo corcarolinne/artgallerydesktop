@@ -120,6 +120,12 @@ public class AdminDashboardView extends JFrame {
         deleteArtist.setActionCommand("delete-artist");
         panel.add(deleteArtist);
         
+        // button to go to profile page
+        JButton logout = new JButton("Logout");
+        logout.addActionListener((ActionListener) controller);
+        logout.setActionCommand("logout");
+        panel.add(logout);
+        
         // calling methods to show tables
         this.renderArtsTable();
         this.renderAdminTable();

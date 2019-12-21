@@ -13,6 +13,7 @@ public class CustomerDashboardController implements ActionListener {
     CustomerDashboardView view;
     CustomerProfileView profileUpdate;
     User userLogged;
+    LoginController login;
     
     public CustomerDashboardController(User userLogged){
         model = new CustomerDashboardModel();
@@ -41,6 +42,9 @@ public class CustomerDashboardController implements ActionListener {
             this.model.updateProfile(editUser, userLogged);
             profileUpdate.dispose();
 //            view.showView();
+        } else if(e.getActionCommand().equals("logout")){
+            login = new LoginController();
+            view.dispose();
         }
       
     }    
