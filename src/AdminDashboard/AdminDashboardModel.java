@@ -103,7 +103,7 @@ public class AdminDashboardModel {
             Statement stmt = connection.createStatement();
             
             // building the query
-            String query = "INSERT INTO arts (Title, ArtistID, ArtType) VALUES ('"+newArt.getTitle()+"','"+newArt.getArtistID()+"','"+newArt.getArtType()+"');";
+            String query = "INSERT INTO carol_2018250.arts (Title, ArtistID, ArtType) VALUES ('"+newArt.getTitle()+"','"+newArt.getArtistID()+"','"+newArt.getArtType()+"');";
             
             // Sending the query to the database
             stmt.execute(query) ;
@@ -132,7 +132,48 @@ public class AdminDashboardModel {
         // Retuning the login status
         //return register;
     }
-    
+     // method to check if a user exists in the database
+    public void createArtist(Artist newArtist){
+        
+        // variable to define if the login is successful
+        //boolean register = false;
+        
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+            
+             // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            
+            // building the query
+            String query = "INSERT INTO artists (FirstName, LastName, Address, Website) VALUES ('"+newArtist.getFirstName()+"','"+newArtist.getLastName()+"','"+newArtist.getAddress()+"','"+newArtist.getWebsite()+"');";
+            
+            // Sending the query to the database
+            stmt.execute(query) ;
+
+            // Calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();
+            
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+
+        // Retuning the login status
+        //return register;
+    }
     public void updateProfile(User editUser, User loggedUser){
         
         // variable to define if the login is successful
@@ -546,7 +587,45 @@ public class AdminDashboardModel {
         }
         return artistsData;
     }
+    public void createAdmin(User newUser){
+        
+        
+        try{
+            // variable to define if the login is successful
+            //boolean register = false;
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+            
+             // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            
+            // building the query
+            String query = "INSERT INTO carol_2018250.users (FirstName, LastName, Username, Pass, IsAdmin, Address, Email) VALUES ('"+newUser.getFirstName()+"','"+newUser.getLastName()+"','"+newUser.getUsername()+"', '"+newUser.getPassword()+"', '1', '"+newUser.getAddress()+"', '"+newUser.getEmail()+"');";
+            
+            // Sending the query to the database
+            stmt.execute(query) ;
 
+            // Calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();    
+            
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+
+    }
 
 
     

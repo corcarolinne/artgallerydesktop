@@ -18,6 +18,8 @@ public class AdminDashboardController implements ActionListener {
     AdminDashboardView view;
     AdminProfileView adminProfileView;
     ArtCreateView artCreateView;
+    ArtistCreateView artistCreateView;
+    AdminCreateView adminCreateView;
     User userLogged;
     User userToEdit;
     User userToBeDeleted;
@@ -62,6 +64,47 @@ public class AdminDashboardController implements ActionListener {
         
         
             
+        } else if(e.getActionCommand().equals("go-to-artist-create")) {
+           artistCreateView = new ArtistCreateView(this);  
+        
+        }  if(e.getActionCommand().equals("create-artist")){
+        // getting values from view  
+        String firstName = artistCreateView.getFirstName();
+        String lastName = artistCreateView.getLastName();
+        String address = artistCreateView.getAddress();
+        String website = artistCreateView.getWebsite();
+
+        // Create an instance of the user class with the data collated
+        Artist newArtist = new Artist(firstName, lastName, address, website);
+        
+        // create a model for 
+        this.model.createArtist(newArtist);
+        view.dispose();
+        view = new AdminDashboardView(this);
+        artistCreateView.dispose();
+        
+        
+            
+        } else if(e.getActionCommand().equals("go-to-admin-create")) {
+           adminCreateView = new AdminCreateView(this);
+        } if(e.getActionCommand().equals("create-admin")){
+        // getting values from view  
+        // getting values from view  
+        String firstName = adminCreateView.getFirstName();    
+        String lastName = adminCreateView.getLastName();  
+        String username = adminCreateView.getUsername();
+        String email = adminCreateView.getEmail();  
+        String address = adminCreateView.getAddress();  
+        String password = adminCreateView.getPassword();
+
+        // Create an instance of the user class with the data collated
+        User newUser = new User(firstName, lastName, username, email, address, password, true);
+        
+         // create a model for 
+        this.model.createAdmin(newUser);
+        view.dispose();
+        view = new AdminDashboardView(this);
+        adminCreateView.dispose();
         }
         else if (e.getActionCommand().equals("update-profile")) {
             // getting values from view  
