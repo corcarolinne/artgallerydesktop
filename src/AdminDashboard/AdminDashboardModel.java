@@ -90,6 +90,48 @@ public class AdminDashboardModel {
         return artData;
     }
     
+    // method to check if a user exists in the database
+    public void createArt(Art newArt){
+        
+        // variable to define if the login is successful
+        //boolean register = false;
+        
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+            
+             // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            
+            // building the query
+            String query = "INSERT INTO arts (Title, ArtistID, ArtType) VALUES ('"+newArt.getTitle()+"','"+newArt.getArtistID()+"','"+newArt.getArtType()+"');";
+            
+            // Sending the query to the database
+            stmt.execute(query) ;
+
+            // Calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();
+            
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+
+        // Retuning the login status
+        //return register;
+    }
     
     public void updateProfile(User editUser, User loggedUser){
         

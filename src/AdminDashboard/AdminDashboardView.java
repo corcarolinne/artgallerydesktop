@@ -66,6 +66,12 @@ public class AdminDashboardView extends JFrame {
         profile.setActionCommand("admin-profile");
         panel.add(profile);
         
+        // button to go to update art page
+        JButton goToArtCreate = new JButton("Create Art");
+        goToArtCreate.addActionListener((ActionListener) controller);
+        goToArtCreate.setActionCommand("go-to-art-create");
+        panel.add(goToArtCreate);
+        
         // button to go to update data from table
         JButton update = new JButton("Update Admin");
         update.addActionListener((ActionListener) controller);

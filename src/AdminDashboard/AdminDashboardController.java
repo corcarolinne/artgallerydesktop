@@ -17,6 +17,7 @@ public class AdminDashboardController implements ActionListener {
     public AdminDashboardModel model;
     AdminDashboardView view;
     AdminProfileView adminProfileView;
+    ArtCreateView artCreateView;
     User userLogged;
     User userToEdit;
     User userToBeDeleted;
@@ -41,7 +42,28 @@ public class AdminDashboardController implements ActionListener {
         if(e.getActionCommand().equals("admin-profile")){
             adminProfileView = new AdminProfileView(this, this.userLogged);
 //            view.dispose();
-        } else if (e.getActionCommand().equals("update-profile")) {
+        }  else if(e.getActionCommand().equals("go-to-art-create")) {
+           artCreateView = new ArtCreateView(this);  
+        }  if(e.getActionCommand().equals("create-art")){
+        // getting values from view  
+        String title = artCreateView.getArtTitle();
+        String artistIDString = artCreateView.getArtistID();
+        int artistID = Integer.parseInt(artistIDString);
+        String type = artCreateView.getArtType();
+
+        // Create an instance of the user class with the data collated
+        Art newArt = new Art(title, artistID, type);
+        
+        // create a model for 
+        this.model.createArt(newArt);
+        view.dispose();
+        view = new AdminDashboardView(this);
+        artCreateView.dispose();
+        
+        
+            
+        }
+        else if (e.getActionCommand().equals("update-profile")) {
             // getting values from view  
             String firstName = adminProfileView.getFirstName();    
             String lastName = adminProfileView.getLastName();  
