@@ -4,16 +4,20 @@ package CustomerDashboard;
 //import Register.RegisterController;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 
 public class CustomerDashboardView extends JFrame {
     // creating properties to make values accesible for other parts of the program
-   
+    private JTextField searchTextField;
+    private JComboBox dropdown;
+    
     // controller
     private CustomerDashboardController controller;
     
@@ -45,6 +49,26 @@ public class CustomerDashboardView extends JFrame {
         JPanel panel = new JPanel();
         this.add(panel);
         
+       
+        // search
+        JLabel searchLabel = new JLabel("Search:");        
+        searchTextField = new JTextField(20);
+        panel.add(searchLabel);
+        panel.add(searchTextField);
+        
+        // filter
+        String filterOptions[]={"Title","Artist","Type"};        
+        this.dropdown = new JComboBox(filterOptions);
+        dropdown.addActionListener((ActionListener) controller);
+        dropdown.setActionCommand("filter");
+        panel.add(dropdown);
+        
+        
+        // button to go to profile page
+        JButton search = new JButton("Search");
+        search.addActionListener((ActionListener) controller);
+        search.setActionCommand("search");
+        panel.add(search);
         
         // button to go to profile page
         JButton profile = new JButton("Profile");
@@ -82,6 +106,15 @@ public class CustomerDashboardView extends JFrame {
         this.validate();
         this.repaint();
     }
+
+    public String getSearchInput() {
+         return this.searchTextField.getText();
+    }
+    
+    public String getDropdownItem() {
+        return this.dropdown.getSelectedItem().toString();
+    }
+    
 
     
 }

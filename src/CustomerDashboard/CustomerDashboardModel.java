@@ -130,4 +130,46 @@ public class CustomerDashboardModel {
                 System.out.println( e ) ;
         }
     }
+
+    public void search(String searchInput, String selectedFilter) {
+        
+        // variable to define if the login is successful
+        //boolean update = false;
+        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
+        
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+
+            // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            
+            System.out.println("ta entrando no metodo porra");
+            // building the query
+            String query = ""; 
+            
+            stmt.execute(query);
+
+            // Calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();
+            
+            
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+        
+    }
 }

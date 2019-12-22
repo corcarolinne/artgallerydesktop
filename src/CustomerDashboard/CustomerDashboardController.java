@@ -14,6 +14,8 @@ public class CustomerDashboardController implements ActionListener {
     CustomerProfileView profileUpdate;
     User userLogged;
     LoginController login;
+    String selectedFilter;
+    String searchInput;
     
     public CustomerDashboardController(User userLogged){
         model = new CustomerDashboardModel();
@@ -26,7 +28,6 @@ public class CustomerDashboardController implements ActionListener {
         
         if(e.getActionCommand().equals("profile")){
             profileUpdate = new CustomerProfileView(this, this.userLogged);
-//            view.dispose();
         } else if (e.getActionCommand().equals("update-profile")) {
             // getting values from view  
             String firstName = profileUpdate.getFirstName();    
@@ -45,8 +46,14 @@ public class CustomerDashboardController implements ActionListener {
         } else if(e.getActionCommand().equals("logout")){
             login = new LoginController();
             view.dispose();
+        }  else if(e.getActionCommand().equals("filter")) {
+            this.selectedFilter =  view.getDropdownItem();
+        } else if(e.getActionCommand().equals("search")){
+            // getting values from input
+            this.searchInput = view.getSearchInput();
+            this.model.search(this.searchInput, this.selectedFilter);
         }
-      
+        
     }    
     
     public CustomerDashboardView getView() {
