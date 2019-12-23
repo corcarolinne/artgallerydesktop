@@ -2,6 +2,7 @@
 package CustomerDashboard;
 
 //import Register.RegisterController;
+import Entities.Art;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,6 +18,9 @@ public class CustomerDashboardView extends JFrame {
     // creating properties to make values accesible for other parts of the program
     private JTextField searchTextField;
     private JComboBox dropdown;
+    
+     private JTable artsTable;
+     String[][] artsData;
     
     // controller
     private CustomerDashboardController controller;
@@ -72,6 +76,12 @@ public class CustomerDashboardView extends JFrame {
         panel.add(search);
         
         // button to go to profile page
+        JButton like = new JButton("Like Art");
+        like.addActionListener((ActionListener) controller);
+        like.setActionCommand("like");
+        panel.add(like);
+        
+        // button to go to profile page
         JButton profile = new JButton("Profile");
         profile.addActionListener((ActionListener) controller);
         profile.setActionCommand("profile");
@@ -84,18 +94,18 @@ public class CustomerDashboardView extends JFrame {
         panel.add(logout);
         
         // array with data for table
-        String[][] artData = null;
+        //this.artsData = null;
         //searchData = null;
         // table header
         String[] header = {"Art", "ArtistFirst", "ArtistLast", "Type"};
     
         // calling method from model 
-        artData = controller.model.showArtTable("","");
+        artsData = controller.model.showArtTable("","");
         //searchData = controller.model.showArtTable(this.getDropdownItem(),this.getSearchInput());
         
         // table
-        JTable artTable = new JTable(artData, header);
-        panel.add(artTable);
+        artsTable = new JTable(artsData, header);
+        panel.add(artsTable);
         
         // table for search
         
@@ -103,7 +113,7 @@ public class CustomerDashboardView extends JFrame {
         //panel.add(searchTable);
         
         // scroll
-        JScrollPane scroll = new JScrollPane(artTable);
+        JScrollPane scroll = new JScrollPane(artsTable);
         panel.add(scroll);
         //JScrollPane scroll2 = new JScrollPane(searchTable);
         //panel.add(scroll2); 
@@ -125,7 +135,25 @@ public class CustomerDashboardView extends JFrame {
         return this.dropdown.getSelectedItem().toString();
     }
     
-    
+    public Art getSelectedArt() {
+        Art selectedArt = new Art();
+        int selectedArtIndex = artsTable.getSelectedRow();
+        
+        if (selectedArtIndex > -1) {
+            String[] selectedArtsArray = artsData[selectedArtIndex];
+            
+            selectedArt.setArtID(Integer.parseInt(selectedArtsArray[0]));
+            selectedArt.setTitle(selectedArtsArray[1]);
+            selectedArt.setArtistID(Integer.parseInt(selectedArtsArray[2]));
+            selectedArt.setArtistFirstName(selectedArtsArray[3]);
+            selectedArt.setArtistLastName(selectedArtsArray[4]);
+            selectedArt.setArtType(selectedArtsArray[5]);
+        
+        }
+        
+        return selectedArt;
+    }
+
     
     
 }

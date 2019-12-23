@@ -1,6 +1,7 @@
 
 package CustomerDashboard;
 
+import Entities.Art;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Login.LoginController;
@@ -18,6 +19,7 @@ public class CustomerDashboardController implements ActionListener {
     String selectedFilter;
     String searchInput;
     String[][] searchResult;
+    Art artToLike;
     
     public CustomerDashboardController(User userLogged){
         model = new CustomerDashboardModel();
@@ -54,13 +56,12 @@ public class CustomerDashboardController implements ActionListener {
             // getting values from input
             this.searchInput = view.getSearchInput();
             searchResult= this.model.showArtTable(this.searchInput, this.selectedFilter);
-            searchResultsView = new SearchResultsView(this, searchResult);
-            //this.searchResultsView.setSearchData(searchResult);
-            //view = new CustomerDashboardView(this);
-            
-            
-            
-            
+            searchResultsView = new SearchResultsView(this, searchResult);            
+        } else if (e.getActionCommand().equals("like")){
+           // get select art
+           this.artToLike = view.getSelectedArt();
+           // call method to send art to favourites table
+           model.createFavourite(this.artToLike, this.userLogged);
         }
         
     }    

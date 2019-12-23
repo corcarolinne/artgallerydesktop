@@ -37,7 +37,7 @@ public class CustomerDashboardModel {
             if(searchInput.isEmpty()) {
                 // building the queries
                 String checkNumOfRows = "SELECT * FROM carol_2018250.arts";
-                String query = "SELECT arts.ArtID, arts.Title, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID ORDER BY arts.ArtID;";
+                String query = "SELECT arts.ArtID, arts.Title, artists.ArtistID, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID ORDER BY arts.ArtID;";
 
                 // sending the query to the database
                 ResultSet resultNumOfRows = stmt.executeQuery(checkNumOfRows) ;
@@ -51,17 +51,18 @@ public class CustomerDashboardModel {
 
                 ResultSet result = stmt.executeQuery(query) ;
                 // set artData number of rows and number of columns
-                artData= new String[numOfRows][4];
+                artData= new String[numOfRows][6];
 
                 int row = 0;
                 // loop through result, while it's returns true (while there's lines in art table)
                 while(result.next()) {
                     // set artData array to receive each value from each row, for each corresponding column
-                    //artData1[row][0] = result.getString("ArtID");
-                    artData[row][0] = result.getString("Title");
-                    artData[row][1] = result.getString("FirstName");
-                    artData[row][2] = result.getString("LastName");
-                    artData[row][3] = result.getString("ArtType");
+                    artData[row][0] = result.getString("ArtID");
+                    artData[row][1] = result.getString("Title");
+                    artData[row][2] = result.getString("ArtistID");
+                    artData[row][3] = result.getString("FirstName");
+                    artData[row][4] = result.getString("LastName");
+                    artData[row][5] = result.getString("ArtType");
 
                    // increase row to try to populate the next row
                     row++;
@@ -81,9 +82,9 @@ public class CustomerDashboardModel {
                     ResultSet searchArtists = stmt.executeQuery(queryInArtists);
                     while(searchArtists.next()) {
                         
-                        System.out.println("entrou no while");
+                        
                         artistID = searchArtists.getString("ArtistID");
-                        System.out.println(artistID);
+                        
                         
                         rowTest++;
                     }
@@ -103,7 +104,7 @@ public class CustomerDashboardModel {
                     System.out.println(numOfRows);
                     
                     // set artData number of rows and number of columns
-                    artData= new String[numOfRows][4];
+                    artData= new String[numOfRows][5];
                     
                     // sending the query to the database
                     ResultSet searchResult = stmt.executeQuery(queryInArts);
@@ -113,11 +114,11 @@ public class CustomerDashboardModel {
                     while(searchResult.next()) {
                         
                         // set artData array to receive each value from each row, for each corresponding column
-                        //artData1[row][0] = result.getString("ArtID");
-                        artData[row][0] = searchResult.getString("Title");
-                        artData[row][1] = searchResult.getString("FirstName");
-                        artData[row][2] = searchResult.getString("LastName");
-                        artData[row][3] = searchResult.getString("ArtType");
+                        artData[row][0] = searchResult.getString("ArtID");
+                        artData[row][1] = searchResult.getString("Title");
+                        artData[row][2] = searchResult.getString("FirstName");
+                        artData[row][3] = searchResult.getString("LastName");
+                        artData[row][4] = searchResult.getString("ArtType");
                         
                         row++;
 
@@ -141,7 +142,7 @@ public class CustomerDashboardModel {
                     }
 
                     // set artData number of rows and number of columns
-                    artData= new String[numOfRows][4];
+                    artData= new String[numOfRows][5];
                     
                     // sending the query to the database
                     ResultSet searchResult = stmt.executeQuery(query);
@@ -153,11 +154,11 @@ public class CustomerDashboardModel {
                         
                         //row = searchResult.getRow();
                         // set artData array to receive each value from each row, for each corresponding column
-                        //artData1[row][0] = result.getString("ArtID");
-                        artData[row][0] = searchResult.getString("Title");
-                        artData[row][1] = searchResult.getString("FirstName");
-                        artData[row][2] = searchResult.getString("LastName");
-                        artData[row][3] = searchResult.getString("ArtType");
+                        artData[row][0] = searchResult.getString("ArtID");
+                        artData[row][1] = searchResult.getString("Title");
+                        artData[row][2] = searchResult.getString("FirstName");
+                        artData[row][3] = searchResult.getString("LastName");
+                        artData[row][4] = searchResult.getString("ArtType");
                         
                        
                         row++;
@@ -230,5 +231,45 @@ public class CustomerDashboardModel {
         }
     }
 
-    
+     public void createFavourite(Art newFavouriteArt, User userLogged){
+        
+        // variable to define if the login is successful
+        //boolean register = false;
+        
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+            
+             // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            
+            // building the query
+            String query = "INSERT INTO carol_2018250.favourites (ArtID, UserID) VALUES ('"+newFavouriteArt.getArtID()+"','"+userLogged.getUserID()+"');";
+            
+            // Sending the query to the database
+            stmt.execute(query) ;
+
+            // Calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();
+            
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+        catch( Exception e ){
+                System.out.println( e ) ;
+        }
+
+        // Retuning the login status
+        //return register;
+    }
 }
