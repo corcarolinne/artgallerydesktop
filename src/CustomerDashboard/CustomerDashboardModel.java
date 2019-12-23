@@ -74,7 +74,7 @@ public class CustomerDashboardModel {
                 if(selectedFilter == "Artist") {
                 
                     String artistID = "";
-                    String queryInArtists = "SELECT * FROM carol_2018250.artists WHERE FirstName = '"+searchInput+"' OR LastName = '"+searchInput+"';";
+                    String queryInArtists = "SELECT * FROM carol_2018250.artists WHERE FirstName LIKE '%"+searchInput+"%' OR LastName LIKE '%"+searchInput+"%';";
                     
                     int rowTest = 0;
                     // sending the query to the database
@@ -125,10 +125,10 @@ public class CustomerDashboardModel {
 
 
                 } else {
-                    String queryToCheckSize = "SELECT arts.ArtID, arts.Title, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+"='"+searchInput+"' ORDER BY arts.ArtID;"; 
+                    String queryToCheckSize = "SELECT arts.ArtID, arts.Title, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+" LIKE '%"+searchInput+"%' ORDER BY arts.ArtID;"; 
 
                     // building the query
-                     String query = "SELECT arts.ArtID, arts.Title, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+"='"+searchInput+"' ORDER BY arts.ArtID;"; 
+                     String query = "SELECT arts.ArtID, arts.Title, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+" LIKE '%"+searchInput+"%' ORDER BY arts.ArtID;"; 
 
                      
                     ResultSet resultToCheckSize = stmt.executeQuery(query);
