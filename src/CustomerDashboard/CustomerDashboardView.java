@@ -20,6 +20,7 @@ public class CustomerDashboardView extends JFrame {
     
     // controller
     private CustomerDashboardController controller;
+    //private String[][] searchData;
     
     // constructor receives a Controller class
     public CustomerDashboardView(CustomerDashboardController controller) {
@@ -57,7 +58,7 @@ public class CustomerDashboardView extends JFrame {
         panel.add(searchTextField);
         
         // filter
-        String filterOptions[]={"Title","Artist","Type"};        
+        String filterOptions[]={"","Title","Artist","ArtType"};        
         this.dropdown = new JComboBox(filterOptions);
         dropdown.addActionListener((ActionListener) controller);
         dropdown.setActionCommand("filter");
@@ -84,21 +85,30 @@ public class CustomerDashboardView extends JFrame {
         
         // array with data for table
         String[][] artData = null;
+        //searchData = null;
         // table header
         String[] header = {"Art", "ArtistFirst", "ArtistLast", "Type"};
     
         // calling method from model 
-        artData = controller.model.showArtTable();
+        artData = controller.model.showArtTable("","");
+        //searchData = controller.model.showArtTable(this.getDropdownItem(),this.getSearchInput());
         
         // table
         JTable artTable = new JTable(artData, header);
         panel.add(artTable);
         
+        // table for search
+        
+        //JTable searchTable = new JTable(searchData, header);
+        //panel.add(searchTable);
+        
         // scroll
         JScrollPane scroll = new JScrollPane(artTable);
         panel.add(scroll);
-           
-         validation();  
+        //JScrollPane scroll2 = new JScrollPane(searchTable);
+        //panel.add(scroll2); 
+        
+        validation();  
     }
    
     // validation and repainting
@@ -115,6 +125,7 @@ public class CustomerDashboardView extends JFrame {
         return this.dropdown.getSelectedItem().toString();
     }
     
-
+    
+    
     
 }

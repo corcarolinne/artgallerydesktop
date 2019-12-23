@@ -12,10 +12,12 @@ public class CustomerDashboardController implements ActionListener {
     public CustomerDashboardModel model;
     CustomerDashboardView view;
     CustomerProfileView profileUpdate;
+    SearchResultsView searchResultsView;
     User userLogged;
     LoginController login;
     String selectedFilter;
     String searchInput;
+    String[][] searchResult;
     
     public CustomerDashboardController(User userLogged){
         model = new CustomerDashboardModel();
@@ -51,7 +53,14 @@ public class CustomerDashboardController implements ActionListener {
         } else if(e.getActionCommand().equals("search")){
             // getting values from input
             this.searchInput = view.getSearchInput();
-            this.model.search(this.searchInput, this.selectedFilter);
+            searchResult= this.model.showArtTable(this.searchInput, this.selectedFilter);
+            searchResultsView = new SearchResultsView(this, searchResult);
+            //this.searchResultsView.setSearchData(searchResult);
+            //view = new CustomerDashboardView(this);
+            
+            
+            
+            
         }
         
     }    
