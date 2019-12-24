@@ -48,7 +48,7 @@ public class FavouritesView extends JFrame {
         
         
         // table header
-         String[] header = {"Art ID","Ttile", "Artist ID","Artist First Name", "Artist Last Name", "Type"};
+         String[] header = {"Art ID","Ttile", "Artist ID", "Type"};
         
         // table for search
         JTable favouritesTable = new JTable(this.favouritesData, header);

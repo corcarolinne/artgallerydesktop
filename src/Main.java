@@ -1,7 +1,4 @@
 
-
-
-// TODO: rename to Main
 import CustomerDashboard.CustomerDashboardController;
 import Login.LoginController;
 

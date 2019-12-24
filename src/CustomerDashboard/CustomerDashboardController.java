@@ -14,11 +14,13 @@ public class CustomerDashboardController implements ActionListener {
     CustomerDashboardView view;
     CustomerProfileView profileUpdate;
     SearchResultsView searchResultsView;
+    FavouritesView favouritesView;
     User userLogged;
     LoginController login;
     String selectedFilter;
     String searchInput;
     String[][] searchResult;
+    String[][] favouritesData;
     Art artToLike;
     
     public CustomerDashboardController(User userLogged){
@@ -62,9 +64,12 @@ public class CustomerDashboardController implements ActionListener {
            this.artToLike = view.getSelectedArt();
            // call method to send art to favourites table
            model.createFavourite(this.artToLike, this.userLogged);
+        }else if (e.getActionCommand().equals("go-to-favourites")){
+           favouritesData= this.model.showFavourites(this.userLogged);
+           favouritesView = new FavouritesView(this, this.favouritesData);
         }
         
-    }    
+    }   
     
     public CustomerDashboardView getView() {
         return this.view;

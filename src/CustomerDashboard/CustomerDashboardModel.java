@@ -274,4 +274,73 @@ public class CustomerDashboardModel {
         // Retuning the login status
         //return register;
     }
+     public String[][] showFavourites(User userLogged){
+        
+        String[][] favouritesData = null;
+        
+        
+        try{
+            Connection connection = DriverManager.getConnection(dbServer, user, password);
+            
+             // get a statement from the connection
+            Statement stmt = connection.createStatement();
+            
+            // query to check size
+            String query = "SELECT * FROM carol_2018250.favourites WHERE UserID='"+userLogged.getUserID()+"';";
+            String queryInArts = "SELECT arts.ArtID, arts.Title, arts.ArtistID, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.favourites ON arts.ArtID =  favourites.ArtID WHERE favourites.UserID='"+userLogged.getUserID()+"' ORDER BY arts.ArtID;"; 
+            
+            ResultSet resultToCheckSize = stmt.executeQuery(query);
+            
+            int numOfRows = 0;
+            
+            // while we have rows, or while next() returns true
+            while(resultToCheckSize.next()) {
+                // add one to rows
+                numOfRows++;
+            }
+            System.out.println(numOfRows);
+
+            // set artData number of rows and number of columns
+            favouritesData = new String[numOfRows][4];
+            
+            int row = 0; 
+            
+           //artIDFromFavourites = [numOfRows];
+            
+            ResultSet favouritesResult = stmt.executeQuery(queryInArts);
+         
+
+            while(favouritesResult.next()) {
+
+                // set artData array to receive each value from each row, for each corresponding column
+                favouritesData[row][0] = favouritesResult.getString("ArtID");
+                favouritesData[row][1] = favouritesResult.getString("Title");
+                favouritesData[row][2] = favouritesResult.getString("ArtistID");
+                favouritesData[row][3] = favouritesResult.getString("ArtType");
+
+                row++;
+
+            }
+             
+
+            // Calling the method in charge of closing the connections
+            stmt.close();
+            connection.close();
+            
+        }
+        catch( SQLException se ){
+            System.out.println( "SQL Exception:" ) ;
+
+            // Loop through the SQL Exceptions
+            while( se != null ){
+                System.out.println( "State  : " + se.getSQLState()  ) ;
+                System.out.println( "Message: " + se.getMessage()   ) ;
+                System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+                se = se.getNextException() ;
+            }
+        }
+
+        return favouritesData;
+    }
 }

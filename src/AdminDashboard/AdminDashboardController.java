@@ -14,7 +14,7 @@ import javax.swing.SwingUtilities;
 
 public class AdminDashboardController implements ActionListener {
     
-    // This class has to have a reference to all elements of the program
+    // properties
     public AdminDashboardModel model;
     AdminDashboardView view;
     LoginController login;
@@ -33,40 +33,40 @@ public class AdminDashboardController implements ActionListener {
     ArtUpdateView artUpdateView;
     ArtistUpdateView artistUpdateView;
     
-    
+    // constructor receives user logged in
     public AdminDashboardController(User userLogged){
         model = new AdminDashboardModel();
         view = new AdminDashboardView(this);
         this.userLogged = userLogged;
     }
 
+    // action listener
     @Override
     public void actionPerformed(ActionEvent e) {
         
+        // if a certain button is clicked do the actions inside the brackets
         if(e.getActionCommand().equals("admin-profile")){
+            // redirects to admin profile page
             adminProfileView = new AdminProfileView(this, this.userLogged);
-//            view.dispose();
         }else if(e.getActionCommand().equals("logout")){
             login = new LoginController();
             view.dispose();
-        }
-        else if(e.getActionCommand().equals("go-to-art-create")) {
+        } else if(e.getActionCommand().equals("go-to-art-create")) {
+            // redirects to art create page
            artCreateView = new ArtCreateView(this);  
-        }  if(e.getActionCommand().equals("create-art")){
-        // getting values from view  
-        String title = artCreateView.getArtTitle();
-        String artistIDString = artCreateView.getArtistID();
-        int artistID = Integer.parseInt(artistIDString);
-        String type = artCreateView.getArtType();
-
-        // Create an instance of the user class with the data collated
-        Art newArt = new Art(title, artistID, type);
-        
-        // create a model for 
-        this.model.createArt(newArt);
-        view.dispose();
-        view = new AdminDashboardView(this);
-        artCreateView.dispose();
+        } else if(e.getActionCommand().equals("create-art")){
+            // getting values from view  
+            String title = artCreateView.getArtTitle();
+            String artistIDString = artCreateView.getArtistID();
+            int artistID = Integer.parseInt(artistIDString);
+            String type = artCreateView.getArtType();
+            // create an instance of the user class with the data collated
+            Art newArt = new Art(title, artistID, type);
+            // create a model for 
+            this.model.createArt(newArt);
+            view.dispose();
+            view = new AdminDashboardView(this);
+            artCreateView.dispose();
         
         
             
