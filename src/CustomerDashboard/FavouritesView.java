@@ -37,7 +37,7 @@ public class FavouritesView extends JFrame {
     private void attributesSetter(){
         this.setVisible(true);
         this.setSize(500,500);
-        this.setTitle("Search Results");
+        this.setTitle("Favourites");
     }
     
     // method to organize components of the window

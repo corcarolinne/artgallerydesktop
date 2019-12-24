@@ -40,7 +40,7 @@ class ArtUpdateView extends JFrame {
     // method to set attributes
     private void attributesSetter(){
         this.setVisible(true);
-        this.setSize(400,400);
+        this.setSize(300,400);
         this.setTitle("Update Art");
     }
     

@@ -45,7 +45,7 @@ public class CustomerDashboardView extends JFrame {
     // method to set attributes
     private void attributesSetter(){
         this.setVisible(true);
-        this.setSize(500,500);
+        this.setSize(500,600);
         this.setTitle("Customer Dashboard");
     }
     

@@ -41,7 +41,7 @@ public class ArtistUpdateView extends JFrame {
     // method to set attributes
     private void attributesSetter(){
         this.setVisible(true);
-        this.setSize(400,400);
+        this.setSize(325,400);
         this.setTitle("Update Artist");
     }
     

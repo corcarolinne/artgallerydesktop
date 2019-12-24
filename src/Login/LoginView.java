@@ -32,7 +32,7 @@ public class LoginView extends JFrame {
     // method to set attributes
     private void attributesSetter(){
         this.setVisible(true);
-        this.setSize(400,400);
+        this.setSize(300,300);
         this.setTitle("Login");
     }
     

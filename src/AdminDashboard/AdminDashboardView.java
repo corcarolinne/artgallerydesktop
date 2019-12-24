@@ -8,12 +8,12 @@ import Entities.User;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-//import javax.swing.event.TableModelListener;
 
 public class AdminDashboardView extends JFrame {
    
@@ -50,7 +50,7 @@ public class AdminDashboardView extends JFrame {
     // method to set attributes
     private void attributesSetter(){
         this.setVisible(true);
-        this.setSize(1200,500);
+        this.setSize(1500,550);
         this.setTitle("Administrator Dashboard");
     }
     
@@ -79,16 +79,10 @@ public class AdminDashboardView extends JFrame {
         panel.add(goToArtistCreate);
         
         // button to go to update art page
-        JButton goToAdminCreate = new JButton("Create Administrator Account");
+        JButton goToAdminCreate = new JButton("Create Admin");
         goToAdminCreate.addActionListener((ActionListener) controller);
         goToAdminCreate.setActionCommand("go-to-admin-create");
         panel.add(goToAdminCreate);
-        
-        // button to go to update data from table
-        JButton update = new JButton("Update Admin");
-        update.addActionListener((ActionListener) controller);
-        update.setActionCommand("update-item");
-        panel.add(update);
         
         // button to go to update art page
         JButton goToArtUpdate = new JButton("Update Art");
@@ -102,11 +96,11 @@ public class AdminDashboardView extends JFrame {
         goToArtistUpdate.setActionCommand("go-to-artist-update");
         panel.add(goToArtistUpdate);
         
-        // button to delete data from table
-        JButton delete = new JButton("Delete");
-        delete.addActionListener((ActionListener) controller);
-        delete.setActionCommand("delete-item");
-        panel.add(delete);
+        // button to go to update data from table
+        JButton update = new JButton("Update Admin");
+        update.addActionListener((ActionListener) controller);
+        update.setActionCommand("update-item");
+        panel.add(update);
         
         // button to delete art from table
         JButton deleteArt = new JButton("Delete Art");
@@ -119,6 +113,12 @@ public class AdminDashboardView extends JFrame {
         deleteArtist.addActionListener((ActionListener) controller);
         deleteArtist.setActionCommand("delete-artist");
         panel.add(deleteArtist);
+        
+          // button to delete data from table
+        JButton delete = new JButton("Delete Admin");
+        delete.addActionListener((ActionListener) controller);
+        delete.setActionCommand("delete-item");
+        panel.add(delete);
         
         // button to go to profile page
         JButton logout = new JButton("Logout");
@@ -136,8 +136,8 @@ public class AdminDashboardView extends JFrame {
         JScrollPane scroll2 = new JScrollPane(adminTable);
         JScrollPane scroll3 = new JScrollPane(artistsTable);
         panel.add(scroll);
-        panel.add(scroll2);
         panel.add(scroll3);
+        panel.add(scroll2);
            
         validation();  
     }
@@ -154,7 +154,7 @@ public class AdminDashboardView extends JFrame {
         String[] headerAdmin = {"UserID","FirstName", "LastName", "Username", "Address", "Email"};
         adminData = controller.model.showAdminTable();
         JTable nextTable = new JTable(adminData, headerAdmin);
-        this.adminTable = nextTable;
+        this.adminTable = nextTable;    
         this.panel.add(adminTable);
     }
     

@@ -37,8 +37,8 @@ class ArtCreateView extends JFrame {
     // method to set attributes
     private void attributesSetter(){
         this.setVisible(true);
-        this.setSize(400,400);
-        this.setTitle("Create Account");
+        this.setSize(300,400);
+        this.setTitle("Create Art");
     }
     
     // method to organize components of the window

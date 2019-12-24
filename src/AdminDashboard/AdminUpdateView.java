@@ -43,8 +43,8 @@ class AdminUpdateView extends JFrame {
     // method to set attributes
     private void attributesSetter(){
         this.setVisible(true);
-        this.setSize(400,400);
-        this.setTitle("Update Administrator Account");
+        this.setSize(325,400);
+        this.setTitle("Update Admin");
     }
     
     // method to organize components of the window
@@ -68,7 +68,7 @@ class AdminUpdateView extends JFrame {
         passwordTextField = new JPasswordField (this.editUser.getPassword(), 20);
         
         // creating Create Account button
-        JButton registerButton = new JButton("Update Record");
+        JButton registerButton = new JButton("Update Admin");
         registerButton.addActionListener((ActionListener) controller);
         registerButton.setActionCommand("update-admin");
         

@@ -42,6 +42,7 @@ public class RegisterController implements ActionListener {
         
         // create a model for 
         model.register(newUser);
+        view.dispose();
         new LoginController();
             
         }

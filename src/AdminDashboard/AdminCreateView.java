@@ -39,8 +39,8 @@ class AdminCreateView extends JFrame{
     // method to set attributes
     private void attributesSetter(){
         this.setVisible(true);
-        this.setSize(400,400);
-        this.setTitle("Create Account");
+        this.setSize(325,400);
+        this.setTitle("Create Admin");
     }
     
     // method to organize components of the window
