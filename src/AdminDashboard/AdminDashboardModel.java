@@ -14,8 +14,8 @@ import java.sql.Statement;
 public class AdminDashboardModel {
     
     // properties
-    String dbServer = "jdbc:mysql://localhost:3306/carol_2018250"; // type of database/port/database name
-    String user = "root";
+    String dbServer = "jdbc:mysql://database-1.cptrcvahtkfl.eu-west-1.rds.amazonaws.com/carol_2018250"; // type of database/port/database name
+    String user = "carol_2018250";
     String password = "13 Hatnephfcfati_";
     //private boolean isAdmin;
     

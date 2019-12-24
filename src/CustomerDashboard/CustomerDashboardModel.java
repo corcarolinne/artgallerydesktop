@@ -17,8 +17,8 @@ import java.util.logging.Logger;
 public class CustomerDashboardModel {
     
     // properties
-    String dbServer = "jdbc:mysql://localhost:3306/carol_2018250"; // type of database/port/database name
-    String user = "root";
+    String dbServer = "jdbc:mysql://database-1.cptrcvahtkfl.eu-west-1.rds.amazonaws.com/carol_2018250"; // type of database/port/database name
+    String user = "carol_2018250";
     String password = "13 Hatnephfcfati_";
     //private boolean isAdmin;
     
@@ -130,7 +130,7 @@ public class CustomerDashboardModel {
                     String queryToCheckSize = "SELECT arts.ArtID, arts.Title, arts.ArtistID, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+" LIKE '%"+searchInput+"%' ORDER BY arts.ArtID;"; 
 
                     // building the query
-                     String query = "SELECT arts.ArtID, arts.Title, arts.ArtistID, Artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+" LIKE '%"+searchInput+"%' ORDER BY arts.ArtID;"; 
+                     String query = "SELECT arts.ArtID, arts.Title, arts.ArtistID, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+" LIKE '%"+searchInput+"%' ORDER BY arts.ArtID;"; 
 
                      
                     ResultSet resultToCheckSize = stmt.executeQuery(query);

@@ -53,7 +53,7 @@ public class SearchResultsView extends JFrame {
         
         
         // table header
-         String[] header = {"Art ID","Ttile", "Artist ID","Artist First Name", "Artist Last Name", "Type"};
+         String[] header = {"Art ID","Title", "Artist ID","Artist First Name", "Artist Last Name", "Type"};
         
         // table for search
         JTable searchTable = new JTable(this.searchData, header);
