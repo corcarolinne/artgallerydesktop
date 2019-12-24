@@ -97,7 +97,7 @@ public class CustomerDashboardView extends JFrame {
         //this.artsData = null;
         //searchData = null;
         // table header
-        String[] header = {"Art", "ArtistFirst", "ArtistLast", "Type"};
+         String[] header = {"Art ID","Ttile", "Artist ID","Artist First Name", "Artist Last Name", "Type"};
     
         // calling method from model 
         artsData = controller.model.showArtTable("","");

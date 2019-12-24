@@ -1,29 +1,24 @@
 
 package CustomerDashboard;
 
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 
 
-public class SearchResultsView extends JFrame {
+public class FavouritesView extends JFrame {
     
     // controller
     private CustomerDashboardController controller;
     
-    private String[][] searchData;
+    private String[][] favouritesData;
     
     // constructor receives a Controller class
-    public SearchResultsView(CustomerDashboardController controller, String[][] searchData) {
+    public FavouritesView(CustomerDashboardController controller, String[][] favouritesData) {
         // Putting the reference of the controller in the local reference
         this.controller= controller;
-        this.searchData = searchData;
+        this.favouritesData = favouritesData;
         // calling methods to make the window or the view
         this.showView();
         
@@ -56,11 +51,11 @@ public class SearchResultsView extends JFrame {
          String[] header = {"Art ID","Ttile", "Artist ID","Artist First Name", "Artist Last Name", "Type"};
         
         // table for search
-        JTable searchTable = new JTable(this.searchData, header);
-        panel.add(searchTable);
+        JTable favouritesTable = new JTable(this.favouritesData, header);
+        panel.add(favouritesTable);
         
         
-        JScrollPane scroll = new JScrollPane(searchTable);
+        JScrollPane scroll = new JScrollPane(favouritesTable);
         panel.add(scroll); 
         
         validation();  
@@ -73,8 +68,10 @@ public class SearchResultsView extends JFrame {
     }
 
     
-    public void setSearchData(String[][] searchData) {
-        this.searchData = searchData;
+    public void setFavourtitesData(String[][] favouritesData) {
+        this.favouritesData = favouritesData;
     }
     
 }
+
+    

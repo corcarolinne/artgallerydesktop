@@ -90,7 +90,7 @@ public class CustomerDashboardModel {
                     }
                       // building the query
                     //String queryToCheckSize = "SELECT * FROM carol_2018250.arts WHERE ArtistID = '"+artistID+"';"; 
-                    String queryInArts = "SELECT arts.ArtID, arts.Title, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE artists.ArtistID='"+artistID+"' ORDER BY arts.ArtID;"; 
+                    String queryInArts = "SELECT arts.ArtID, arts.Title, arts.ArtistID, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE artists.ArtistID='"+artistID+"' ORDER BY arts.ArtID;"; 
  
                     
                     ResultSet resultToCheckSize = stmt.executeQuery(queryInArts);
@@ -104,7 +104,7 @@ public class CustomerDashboardModel {
                     System.out.println(numOfRows);
                     
                     // set artData number of rows and number of columns
-                    artData= new String[numOfRows][5];
+                    artData= new String[numOfRows][6];
                     
                     // sending the query to the database
                     ResultSet searchResult = stmt.executeQuery(queryInArts);
@@ -116,9 +116,10 @@ public class CustomerDashboardModel {
                         // set artData array to receive each value from each row, for each corresponding column
                         artData[row][0] = searchResult.getString("ArtID");
                         artData[row][1] = searchResult.getString("Title");
-                        artData[row][2] = searchResult.getString("FirstName");
-                        artData[row][3] = searchResult.getString("LastName");
-                        artData[row][4] = searchResult.getString("ArtType");
+                        artData[row][2] = searchResult.getString("ArtistID");
+                        artData[row][3] = searchResult.getString("FirstName");
+                        artData[row][4] = searchResult.getString("LastName");
+                        artData[row][5] = searchResult.getString("ArtType");
                         
                         row++;
 
@@ -126,10 +127,10 @@ public class CustomerDashboardModel {
 
 
                 } else {
-                    String queryToCheckSize = "SELECT arts.ArtID, arts.Title, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+" LIKE '%"+searchInput+"%' ORDER BY arts.ArtID;"; 
+                    String queryToCheckSize = "SELECT arts.ArtID, arts.Title, arts.ArtistID, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+" LIKE '%"+searchInput+"%' ORDER BY arts.ArtID;"; 
 
                     // building the query
-                     String query = "SELECT arts.ArtID, arts.Title, artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+" LIKE '%"+searchInput+"%' ORDER BY arts.ArtID;"; 
+                     String query = "SELECT arts.ArtID, arts.Title, arts.ArtistID, Artists.FirstName, artists.LastName, arts.ArtType FROM carol_2018250.arts INNER JOIN carol_2018250.artists ON arts.ArtistID =  artists.ArtistID WHERE "+selectedFilter+" LIKE '%"+searchInput+"%' ORDER BY arts.ArtID;"; 
 
                      
                     ResultSet resultToCheckSize = stmt.executeQuery(query);
@@ -142,7 +143,7 @@ public class CustomerDashboardModel {
                     }
 
                     // set artData number of rows and number of columns
-                    artData= new String[numOfRows][5];
+                    artData= new String[numOfRows][6];
                     
                     // sending the query to the database
                     ResultSet searchResult = stmt.executeQuery(query);
@@ -156,9 +157,10 @@ public class CustomerDashboardModel {
                         // set artData array to receive each value from each row, for each corresponding column
                         artData[row][0] = searchResult.getString("ArtID");
                         artData[row][1] = searchResult.getString("Title");
-                        artData[row][2] = searchResult.getString("FirstName");
-                        artData[row][3] = searchResult.getString("LastName");
-                        artData[row][4] = searchResult.getString("ArtType");
+                        artData[row][2] = searchResult.getString("ArtistID");
+                        artData[row][3] = searchResult.getString("FirstName");
+                        artData[row][4] = searchResult.getString("LastName");
+                        artData[row][5] = searchResult.getString("ArtType");
                         
                        
                         row++;
