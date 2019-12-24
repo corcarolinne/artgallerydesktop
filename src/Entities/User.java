@@ -16,15 +16,13 @@ public class User {
     private String password;
     private boolean isAdmin;
     
-    // 2 ways to create an instance of this class
+    // constructors
     public User(){
     }
-    // 2 ways to create an instance of this class
     public User(String username, String password){
         this.username = username;
         this.password = password;
     }
-
     public User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin){
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,6 +33,7 @@ public class User {
         this.isAdmin = isAdmin;
     }
     
+    // getters
     public int getUserID() {
         return userID;
     }
@@ -60,6 +59,7 @@ public class User {
         return isAdmin;
     }
 
+    // setters
     public void setUserID(int userID) {
         this.userID = userID;
     }
@@ -68,44 +68,22 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    /**
-     * @param firstName the firstName to set
-     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    /**
-     * @param lastName the lastName to set
-     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    /**
-     * @param username the username to set
-     */
     public void setUsername(String username) {
         this.username = username;
     }
-
-    /**
-     * @param email the email to set
-     */
     public void setEmail(String email) {
         this.email = email;
     }
-
-    /**
-     * @param address the address to set
-     */
     public void setAddress(String address) {
         this.address = address;
     }
-
-    /**
-     * @param password the password to set
-     */
     public void setPassword(String password) {
         this.password = password;
     }

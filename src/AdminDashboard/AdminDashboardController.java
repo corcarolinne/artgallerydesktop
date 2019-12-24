@@ -138,7 +138,7 @@ public class AdminDashboardController implements ActionListener {
             view.dispose();
             view = new AdminDashboardView(this);
             adminUpdateView.dispose();
-        } else if (e.getActionCommand().equals("delete-item")) {
+        } else if (e.getActionCommand().equals("delete-admin")) {
             // calling method from view to get user selected
             this.userToBeDeleted = view.getSelectedUser();
             // calling method from model passing User instance

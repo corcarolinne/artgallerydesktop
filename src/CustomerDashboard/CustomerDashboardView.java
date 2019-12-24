@@ -15,22 +15,19 @@ import javax.swing.JTextField;
 
 
 public class CustomerDashboardView extends JFrame {
-    // creating properties to make values accesible for other parts of the program
+    // properties
     private JTextField searchTextField;
     private JComboBox dropdown;
-    
-     private JTable artsTable;
-     String[][] artsData;
+    private JTable artsTable;
+    String[][] artsData;
     
     // controller
     private CustomerDashboardController controller;
-    //private String[][] searchData;
     
     // constructor receives a Controller class
     public CustomerDashboardView(CustomerDashboardController controller) {
-        // Putting the reference of the controller in the local reference
         this.controller= controller;
-        // calling methods to make the window or the view
+        // calling methods to make the view
         this.showView();
          
     }
@@ -54,28 +51,26 @@ public class CustomerDashboardView extends JFrame {
         JPanel panel = new JPanel();
         this.add(panel);
         
-       
-        // search
+        // search label and input
         JLabel searchLabel = new JLabel("Search:");        
         searchTextField = new JTextField(20);
         panel.add(searchLabel);
         panel.add(searchTextField);
         
-        // filter
+        // filter dropdown
         String filterOptions[]={"","Title","Artist","ArtType"};        
         this.dropdown = new JComboBox(filterOptions);
         dropdown.addActionListener((ActionListener) controller);
         dropdown.setActionCommand("filter");
         panel.add(dropdown);
         
-        
-        // button to go to profile page
+        // button for search
         JButton search = new JButton("Search");
         search.addActionListener((ActionListener) controller);
         search.setActionCommand("search");
         panel.add(search);
         
-        // button to go to profile page
+        // button to like art
         JButton like = new JButton("Like Art");
         like.addActionListener((ActionListener) controller);
         like.setActionCommand("like");
@@ -87,42 +82,30 @@ public class CustomerDashboardView extends JFrame {
         profile.setActionCommand("profile");
         panel.add(profile);
         
-         // button to go to profile page
+         // button to go to favourites page
         JButton favourites = new JButton("Favourites");
         favourites.addActionListener((ActionListener) controller);
         favourites.setActionCommand("go-to-favourites");
         panel.add(favourites);
         
-        // button to go to profile page
+        // button to logout
         JButton logout = new JButton("Logout");
         logout.addActionListener((ActionListener) controller);
         logout.setActionCommand("logout");
         panel.add(logout);
         
-        // array with data for table
-        //this.artsData = null;
-        //searchData = null;
-        // table header
          String[] header = {"Art ID","Ttile", "Artist ID","Artist First Name", "Artist Last Name", "Type"};
     
-        // calling method from model 
+        // calling method from model to show art table
         artsData = controller.model.showArtTable("","");
-        //searchData = controller.model.showArtTable(this.getDropdownItem(),this.getSearchInput());
         
         // table
         artsTable = new JTable(artsData, header);
         panel.add(artsTable);
-        
-        // table for search
-        
-        //JTable searchTable = new JTable(searchData, header);
-        //panel.add(searchTable);
-        
+   
         // scroll
         JScrollPane scroll = new JScrollPane(artsTable);
         panel.add(scroll);
-        //JScrollPane scroll2 = new JScrollPane(searchTable);
-        //panel.add(scroll2); 
         
         validation();  
     }
@@ -133,6 +116,7 @@ public class CustomerDashboardView extends JFrame {
         this.repaint();
     }
 
+    // getters
     public String getSearchInput() {
          return this.searchTextField.getText();
     }
@@ -141,22 +125,25 @@ public class CustomerDashboardView extends JFrame {
         return this.dropdown.getSelectedItem().toString();
     }
     
+    // get art selected from table, returns an instance of Art
     public Art getSelectedArt() {
+        // create new instance
         Art selectedArt = new Art();
+        // get index of the selected row
         int selectedArtIndex = artsTable.getSelectedRow();
         
+        // if something is selected 
         if (selectedArtIndex > -1) {
+            // creates array to store selected row inside 2d array
             String[] selectedArtsArray = artsData[selectedArtIndex];
-            
+             // using setters to pass the values in the row to the Art object
             selectedArt.setArtID(Integer.parseInt(selectedArtsArray[0]));
             selectedArt.setTitle(selectedArtsArray[1]);
             selectedArt.setArtistID(Integer.parseInt(selectedArtsArray[2]));
             selectedArt.setArtistFirstName(selectedArtsArray[3]);
             selectedArt.setArtistLastName(selectedArtsArray[4]);
             selectedArt.setArtType(selectedArtsArray[5]);
-        
         }
-        
         return selectedArt;
     }
 

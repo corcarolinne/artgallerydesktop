@@ -50,7 +50,7 @@ public class LoginModel {
         
     }
     
-    // method to check if a user exists in the database
+    // method to check if a user exists in the database, receives an User instance
     public boolean login(User userLogged){
         
         // variable to define if the login is successful
@@ -58,7 +58,6 @@ public class LoginModel {
         
         try{
             // building the query
-            // these gets are from the user
             String query = "SELECT * FROM users WHERE Username = '" + userLogged.getUsername() + "' AND Pass = '" + userLogged.getPassword() + "';";
 
             // Sending the query to the database
@@ -69,7 +68,7 @@ public class LoginModel {
             // otherwise it fails
             login = result.next();
             
-            // saving values from isAdmin column to check if user is an admin or not
+            // saving values in the User instance
             userLogged.setIsAdmin(result.getBoolean("IsAdmin"));
             userLogged.setUserID(result.getInt("UserID"));
             userLogged.setFirstName(result.getString("FirstName"));
@@ -106,7 +105,7 @@ public class LoginModel {
         return login;
     }
     
-    // Separeating closing statements for better code structure
+    // closings
     private void closings(){
         try {            
             stmt.close();

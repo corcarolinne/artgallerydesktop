@@ -9,10 +9,8 @@ import Register.RegisterController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// The controller will have the action listener and will be the brain of the application, making the connection between model and view
 public class LoginController implements ActionListener {
-    
-    // creating properties that are also classes
+  
     private LoginModel model;
     private LoginView view;
     private RegisterController registerController;
@@ -20,27 +18,19 @@ public class LoginController implements ActionListener {
     private AdminDashboardController adminDashboardController;
     private User userLogged;
     
-    // constructor to create a new view
+    // constructor
      public LoginController(){
-        // creating a new connection to the DB
         this.model = new LoginModel();
-        // putting values inside these properties, calling construtors
         this.view = new LoginView(this);
     }
 
-     
+    // action listener
     @Override
     public void actionPerformed(ActionEvent e) {
        
-        
-        // AFTER THE USER INFORMATION HAS BEEN GATHERED FROM THE VIEW,
-        // NOW WE CAN GO AND DO WHAT EACH BUTTON IS SUPPOSED TO DO
-        
-        // When the button is clicked
+        // When buttons are clicked, do these actions
         if(e.getActionCommand().equals("login")){
-            
-            // We get username and password from the view 
-            // This is from the text field input, not the user object
+            // picking values from view
             String username = view.getUsername();
             String password = view.getPassword();
 
@@ -50,30 +40,23 @@ public class LoginController implements ActionListener {
             // Ask the model if the user is valid
             boolean login = model.login(userLogged);
 
-            // if the it is valid, show the welcome screen and close the login
+            // if the it is valid
             if(login){
+                // outputs
                 System.out.println("Login Sucessful");
-
+                // redirects to dashboard depending on the type of user 
                 if(userLogged.getIsAdmin() == true) {
                     this.adminDashboardController = new AdminDashboardController(userLogged);
                 } else {
                     this.customerDashboardController = new CustomerDashboardController(userLogged);
                 }
-
                 this.view.dispose();
             }
         }
-        // When the button is clicked...
-        // IMPORTANT, THIS PART IS FAIRLY INCOMPLETE, YOU SHOULD DOUBLE CHECK
-        // FIRST IF THE USER ALREADY EXISTS IN THE DATABASE. 
-        // TO DO THIS, YOU CAN CALL THE METHOD ABOVE!!!!!
         else if(e.getActionCommand().equals("register")){
-            
             // redirects to create account page by creating a register controller
             registerController = new RegisterController();
-            view.dispose();
-            
-            
+            view.dispose();     
         }
     }
     

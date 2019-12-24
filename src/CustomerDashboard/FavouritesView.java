@@ -14,16 +14,14 @@ public class FavouritesView extends JFrame {
     
     private String[][] favouritesData;
     
-    // constructor receives a Controller class
+    // constructor receives a Controller class and a 2d array
     public FavouritesView(CustomerDashboardController controller, String[][] favouritesData) {
-        // Putting the reference of the controller in the local reference
+        
         this.controller= controller;
         this.favouritesData = favouritesData;
-        // calling methods to make the window or the view
+        // calling methods to make the view
         this.showView();
-        
-        
-         
+    
     }
     
     public void showView() {
@@ -44,16 +42,13 @@ public class FavouritesView extends JFrame {
     private void components(){
         JPanel panel = new JPanel();
         this.add(panel);
-        
-        
-        
+    
         // table header
          String[] header = {"Art ID","Ttile", "Artist ID", "Type"};
         
-        // table for search
+        // table for favourites
         JTable favouritesTable = new JTable(this.favouritesData, header);
         panel.add(favouritesTable);
-        
         
         JScrollPane scroll = new JScrollPane(favouritesTable);
         panel.add(scroll); 
@@ -67,7 +62,6 @@ public class FavouritesView extends JFrame {
         this.repaint();
     }
 
-    
     public void setFavourtitesData(String[][] favouritesData) {
         this.favouritesData = favouritesData;
     }

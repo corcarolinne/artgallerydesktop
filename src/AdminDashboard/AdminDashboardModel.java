@@ -17,12 +17,11 @@ public class AdminDashboardModel {
     String dbServer = "jdbc:mysql://database-1.cptrcvahtkfl.eu-west-1.rds.amazonaws.com/carol_2018250"; // type of database/port/database name
     String user = "carol_2018250";
     String password = "13 Hatnephfcfati_";
-    //private boolean isAdmin;
     
+    // method to pick data for arts table, it returns an array 2d with data
     public String[][] showArtTable(){
         
-        // declaring result 2d array with data
-        
+        // declaring 2d array to hold data
          String[][] artData = null;
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
@@ -49,9 +48,6 @@ public class AdminDashboardModel {
 
             int row = 0;
             
-            // User
-            Art editArt = new Art();
-            
             // loop through result, while it's returns true (while there's lines in art table)
             while(result.next()) {
                 // set artData array to receive each value from each row, for each corresponding column
@@ -62,13 +58,12 @@ public class AdminDashboardModel {
                 artData[row][4] = result.getString("LastName");
                 artData[row][5] = result.getString("ArtType");
 
-               // increase row to try to populate the next row
+               // increase row to populate the next row
                 row++;
             }
             
-            // close the result set
+            // close the result set, statement and coonection
             result.close();
-            // calling the method in charge of closing the connections
             stmt.close();
             connection.close();     
         }
@@ -90,12 +85,8 @@ public class AdminDashboardModel {
         return artData;
     }
     
-    // method to check if a user exists in the database
+    // method to create an art piece, receives an art object
     public void createArt(Art newArt){
-        
-        // variable to define if the login is successful
-        //boolean register = false;
-        
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
             
@@ -108,7 +99,7 @@ public class AdminDashboardModel {
             // Sending the query to the database
             stmt.execute(query) ;
 
-            // Calling the method in charge of closing the connections
+            // closing statement and connection
             stmt.close();
             connection.close();
             
@@ -128,16 +119,9 @@ public class AdminDashboardModel {
         catch( Exception e ){
                 System.out.println( e ) ;
         }
-
-        // Retuning the login status
-        //return register;
     }
-     // method to check if a user exists in the database
+    // method to create an artist, receives an artist object
     public void createArtist(Artist newArtist){
-        
-        // variable to define if the login is successful
-        //boolean register = false;
-        
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
             
@@ -150,7 +134,7 @@ public class AdminDashboardModel {
             // Sending the query to the database
             stmt.execute(query) ;
 
-            // Calling the method in charge of closing the connections
+            // closing statement and connections
             stmt.close();
             connection.close();
             
@@ -170,16 +154,9 @@ public class AdminDashboardModel {
         catch( Exception e ){
                 System.out.println( e ) ;
         }
-
-        // Retuning the login status
-        //return register;
     }
+    // method to update logged admin profile, receives 2 instances of user object
     public void updateProfile(User editUser, User loggedUser){
-        
-        // variable to define if the login is successful
-        boolean update = false;
-        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
-        
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
 
@@ -190,10 +167,10 @@ public class AdminDashboardModel {
             
             stmt.execute(query);
 
-            // Calling the method in charge of closing the connections
+            // closing connection and statement
             stmt.close();
             connection.close();
-            
+            // setting user objec to have the values from the other user that now has new values
             loggedUser.setAddress(editUser.getAddress());
             loggedUser.setEmail(editUser.getEmail());
             loggedUser.setFirstName(editUser.getFirstName());
@@ -218,12 +195,8 @@ public class AdminDashboardModel {
         }
     }
     
+     // method to update art piece, recives 2 instances of Art object
     public void updateArt(Art artToBeEdited, Art artSelected ){
-        
-        // variable to define if the login is successful
-        //boolean update = false;
-        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
-        
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
 
@@ -238,6 +211,7 @@ public class AdminDashboardModel {
             stmt.close();
             connection.close();
             
+            // setting art object to have the values from the other art that now has new values
             artSelected.setTitle(artToBeEdited.getTitle());
             artSelected.setArtistID(artToBeEdited.getArtistID());
             artSelected.setArtType(artToBeEdited.getArtType());
@@ -260,12 +234,8 @@ public class AdminDashboardModel {
         }
     }
   
+    // method to update artist, recives 2 instances of Artist object
     public void updateArtist(Artist artistToBeEdited, Artist artistSelected ){
-        
-        // variable to define if the login is successful
-        //boolean update = false;
-        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
-        
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
 
@@ -280,6 +250,7 @@ public class AdminDashboardModel {
             stmt.close();
             connection.close();
             
+            // setting artist object to have the values from the other artist that now has new values
             artistSelected.setFirstName(artistToBeEdited.getFirstName());
             artistSelected.setLastName(artistToBeEdited.getLastName());
             artistSelected.setAddress(artistToBeEdited.getAddress());
@@ -303,10 +274,10 @@ public class AdminDashboardModel {
         }
     }
   
+    // method to pick data for admin table, it returns an array 2d with data
     public String[][] showAdminTable(){
         
-        // declaring result 2d array with data
-        
+        // declaring 2d array to hold data
          String[][] adminData = null;
          
         try{
@@ -333,14 +304,10 @@ public class AdminDashboardModel {
             adminData= new String[numOfRows][6];
 
             int row = 0;
-            
-            // User
-            User editUser = new User();
-            
-            
-            // loop through result, while it's returns true (while there's lines in art table)
+          
+            // loop through result, while it's returns true (while there's lines in admin table)
             while(result.next()) {
-                // set artData array to receive each value from each row, for each corresponding column
+                // set adminData array to receive each value from each row, for each corresponding column
                 adminData[row][0] = result.getString("UserID");
                 adminData[row][1] = result.getString("FirstName");
                 adminData[row][2] = result.getString("LastName");
@@ -352,9 +319,8 @@ public class AdminDashboardModel {
                 row++;
             }
             
-            // close the result set
+            // closing resul, connection and statement
             result.close();
-            // calling the method in charge of closing the connections
             stmt.close();
             connection.close();     
         }
@@ -376,12 +342,8 @@ public class AdminDashboardModel {
         return adminData;
     }
 
+    // method to delete admin, it receives the user selected on table
     public void deleteAdmin(User userToBeDeleted) {
-        
-         // variable to define if the login is successful
-        //boolean update = false;
-        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
-        
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
 
@@ -392,7 +354,7 @@ public class AdminDashboardModel {
             
             stmt.execute(query);
 
-            // Calling the method in charge of closing the connections
+            // closing connection and statement 
             stmt.close();
             connection.close();
            
@@ -415,12 +377,8 @@ public class AdminDashboardModel {
         
     }
     
+    // method to delete art, it receives the art selected on table
     public void deleteArt(Art artToBeDeleted) {
-        
-         // variable to define if the login is successful
-        //boolean update = false;
-        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
-        
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
 
@@ -431,17 +389,17 @@ public class AdminDashboardModel {
             String query2 = "DELETE FROM carol_2018250.favourites WHERE ArtID = '"+artToBeDeleted.getArtID() +"';";
             String query3 = "DELETE FROM carol_2018250.arts WHERE ArtID = '"+artToBeDeleted.getArtID() +"';";
             
+            // if there's an art piece in favourites table, delete this art piece in favourites and arts table
+            // otherwise, delete only in arts table
             if(stmt.execute(query)) {
                 stmt.execute(query2);
                 stmt.execute(query3);
-            } else {
+            }
+            else {
                 stmt.execute(query2);
             }
-           
-            
-            
 
-            // Calling the method in charge of closing the connections
+            // closing statement and connection
             stmt.close();
             connection.close();
            
@@ -463,12 +421,8 @@ public class AdminDashboardModel {
         }
         
     }
+    // method to delete artist, it receives the artist selected on table
     public void deleteArtist(Artist artistToBeDeleted) {
-        
-         // variable to define if the login is successful
-        //boolean update = false;
-        //loggedUser = new User(String firstName, String lastName, String username, String email, String address, String password, boolean isAdmin);
-        
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
 
@@ -480,23 +434,24 @@ public class AdminDashboardModel {
             // sending the query to the database
             ResultSet artsFromArtist = stmt.executeQuery(select_arts_from_artist) ;
             
+            // query to delete
             String query = "DELETE FROM carol_2018250.artists WHERE ArtistID = '"+artistToBeDeleted.getArtistID() +"';";
-            //String query3 = "DELETE FROM carol_2018250.arts WHERE ArtID = '"+artistToBeDeleted.getArtID() +"';";
             
+            // while there's a row in the result set
             while(artsFromArtist.next()) {
-               
+          
+                // save the art id into a variable
                 String artIDString = artsFromArtist.getString("ArtID");
-                int artID = Integer.parseInt(artIDString);	 
+                int artID = Integer.parseInt(artIDString);
+                // make a new instance of Art
                 Art artToBeDeleted =  new Art(artID);
+                // call the method to delete art passing this instance 
                 deleteArt(artToBeDeleted);
                 
             } 
             stmt.execute(query) ;
-           
-            
-            
 
-            // Calling the method in charge of closing the connections
+            // closing statements and connection
             stmt.close();
             connection.close();
            
@@ -519,11 +474,11 @@ public class AdminDashboardModel {
         
     }
     
+    // method to pick data from artist table, it returns a 2d array with the data
     public String[][] showArtistsTable(){
         
-        // declaring result 2d array with data
-        
-         String[][] artistsData = null;
+        // declaring 2d array to hold data
+        String[][] artistsData = null;
          
         try{
             Connection connection = DriverManager.getConnection(dbServer, user, password);
@@ -545,15 +500,13 @@ public class AdminDashboardModel {
             }
 
             ResultSet result = stmt.executeQuery(query) ;
-            // set artData number of rows and number of columns
+            // set artistData number of rows and number of columns
             artistsData= new String[numOfRows][5];
 
-            int row = 0;
-            
-            
-            // loop through result, while it's returns true (while there's lines in art table)
+            int row = 0; 
+            // loop through result, while it's returns true (while there's lines in artist table)
             while(result.next()) {
-                // set artData array to receive each value from each row, for each corresponding column
+                // set artistData array to receive each value from each row, for each corresponding column
                 artistsData[row][0] = result.getString("ArtistID");
                 artistsData[row][1] = result.getString("FirstName");
                 artistsData[row][2] = result.getString("LastName");
@@ -587,12 +540,11 @@ public class AdminDashboardModel {
         }
         return artistsData;
     }
+    
+    // method to create a new admin, it receives an instance of User
     public void createAdmin(User newUser){
-        
-        
         try{
-            // variable to define if the login is successful
-            //boolean register = false;
+           
             Connection connection = DriverManager.getConnection(dbServer, user, password);
             
              // get a statement from the connection
@@ -604,7 +556,7 @@ public class AdminDashboardModel {
             // Sending the query to the database
             stmt.execute(query) ;
 
-            // Calling the method in charge of closing the connections
+            // closing statement and connection
             stmt.close();
             connection.close();    
             
@@ -626,9 +578,5 @@ public class AdminDashboardModel {
         }
 
     }
-
-
-    
-
     
 }

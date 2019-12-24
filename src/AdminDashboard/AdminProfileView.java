@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package AdminDashboard;
 
-//import CustomerDashboard.CustomerDashboardController;
 import Entities.User;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -18,7 +13,7 @@ import javax.swing.JTextField;
 
 public class AdminProfileView extends JFrame {
 
-    // creating properties to make values accesible for other parts of the program
+    // properties
     private JTextField firstNameTextField;
     private JTextField lastNameTextField;
     private JTextField usernameTextField;
@@ -26,23 +21,20 @@ public class AdminProfileView extends JFrame {
     private JTextField addressTextField;
     private JPasswordField passwordTextField;
     private User userLogged;
-    
-    
+
     // controller
     private AdminDashboardController controller;
     
-    // constructor receives a Controller class
+    // constructor receives a Controller class and an instance of User
     public AdminProfileView(AdminDashboardController controller, User userLogged) {
-        
-        // Putting the reference of the controller in the local reference
+ 
         this.controller= controller;
         this.userLogged = userLogged;
         
-        // calling methods to make the window or the view
+        // calling methods to make the view
         attributesSetter();
         components();
-        validation();
-        
+        validation();    
     }
     
     // method to set attributes
@@ -72,7 +64,7 @@ public class AdminProfileView extends JFrame {
         addressTextField = new JTextField(this.userLogged.getAddress(), 20);
         passwordTextField = new JPasswordField (this.userLogged.getPassword(), 20);
         
-        // creating Create Account button
+        // button
         JButton registerButton = new JButton("Update Profile");
         registerButton.addActionListener((ActionListener) controller);
         registerButton.setActionCommand("update-profile");
@@ -121,7 +113,7 @@ public class AdminProfileView extends JFrame {
         return passwordAsString;
     }
 
-    // setter
+    // setters
     public void setFirstName(String newFirstName) {
         firstNameTextField.setText(newFirstName);
     

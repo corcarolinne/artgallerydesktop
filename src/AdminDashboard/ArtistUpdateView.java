@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 public class ArtistUpdateView extends JFrame {
 
-    // creating properties to make values accesible for other parts of the program
+    // properties
     private JTextField firstNameTextField;
     private JTextField lastNameTextField;
     private JTextField addressTextField;
@@ -24,10 +24,8 @@ public class ArtistUpdateView extends JFrame {
     // controller
     private AdminDashboardController controller;
     
-    // constructor receives a Controller class
+    // constructor receives a Controller class and an instance of Artist
     public ArtistUpdateView(AdminDashboardController controller, Artist editArtist) {
-        
-        // Putting the reference of the controller in the local reference
         this.controller= controller;
         this.editArtist = editArtist;
         
@@ -61,7 +59,7 @@ public class ArtistUpdateView extends JFrame {
         addressTextField = new JTextField(this.editArtist.getAddress(), 20);
         websiteTextField = new JTextField(this.editArtist.getWebsite(), 20);
         
-        // creating Create Account button
+        // button
         JButton updateArtist = new JButton("Update Artist");
         updateArtist.addActionListener((ActionListener) controller);
         updateArtist.setActionCommand("update-artist");

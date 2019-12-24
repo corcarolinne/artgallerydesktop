@@ -50,7 +50,7 @@ public class RegisterModel {
         
     }
     
-    // method to check if a user exists in the database
+    // method to register a new customer, it receives an user instance
     public void register(User newUser){
         
         // variable to define if the login is successful
@@ -82,12 +82,9 @@ public class RegisterModel {
         catch( Exception e ){
                 System.out.println( e ) ;
         }
-
-        // Retuning the login status
-        //return register;
     }
     
-    // Separeating closing statements for better code structure
+    // methods to close
     private void closings(){
         try {            
             stmt.close();

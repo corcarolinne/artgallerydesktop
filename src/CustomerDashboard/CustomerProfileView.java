@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class CustomerProfileView extends JFrame {
     
-    // creating properties to make values accesible for other parts of the program
+    // properties
     private JTextField firstNameTextField;
     private JTextField lastNameTextField;
     private JTextField usernameTextField;
@@ -21,19 +21,15 @@ public class CustomerProfileView extends JFrame {
     private JPasswordField passwordTextField;
     private User userLogged;
     
-    //private User loggedUser;
-    
     // controller
     private CustomerDashboardController controller;
     
-    // constructor receives a Controller class
+    // constructor receives a Controller class and an instance of User
     public CustomerProfileView(CustomerDashboardController controller, User userLogged) {
-        
-        // Putting the reference of the controller in the local reference
         this.controller= controller;
         this.userLogged = userLogged;
         
-        // calling methods to make the window or the view
+        // calling methods to make the view
         attributesSetter();
         components();
         validation();
@@ -67,7 +63,7 @@ public class CustomerProfileView extends JFrame {
         addressTextField = new JTextField(this.userLogged.getAddress(), 20);
         passwordTextField = new JPasswordField (this.userLogged.getPassword(), 20);
         
-        // creating Create Account button
+        // button
         JButton registerButton = new JButton("Update Profile");
         registerButton.addActionListener((ActionListener) controller);
         registerButton.setActionCommand("update-profile");
@@ -116,7 +112,7 @@ public class CustomerProfileView extends JFrame {
         return passwordAsString;
     }
 
-    // setter
+    // setters
     public void setFirstName(String newFirstName) {
         firstNameTextField.setText(newFirstName);
     

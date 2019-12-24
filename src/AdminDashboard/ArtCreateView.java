@@ -13,18 +13,14 @@ import javax.swing.JTextField;
 
 class ArtCreateView extends JFrame {
 
-    //creating properties to make values accesible for other parts of the program
+    // properties
     private JTextField titleTextField;
     private JTextField artistIDTextField;
     private JTextField typeTextField;
-    
-    // controller
     private AdminDashboardController controller;
     
     // constructor receives a Controller class
     public ArtCreateView(AdminDashboardController controller) {
-        
-        // Putting the reference of the controller in the local reference
         this.controller= controller;
         
         // calling methods to make the window or the view
@@ -55,7 +51,7 @@ class ArtCreateView extends JFrame {
         artistIDTextField = new JTextField(20);
         typeTextField = new JTextField(20);
         
-        // creating Update Art button
+        // button
         JButton createArt = new JButton("Create Art");
         createArt.addActionListener((ActionListener) controller);
         createArt.setActionCommand("create-art");

@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 class ArtistCreateView extends JFrame {
     
-     // creating properties to make values accesible for other parts of the program
+     // properties
     private JTextField firstNameTextField;
     private JTextField lastNameTextField;
     private JTextField addressTextField;
@@ -20,12 +20,9 @@ class ArtistCreateView extends JFrame {
     
     // controller
     private AdminDashboardController controller;
-    
-
 
     public ArtistCreateView(AdminDashboardController controller) {
-        
-        // Putting the reference of the controller in the local reference
+
         this.controller= controller;
         
         // calling methods to make the window or the view
@@ -57,7 +54,7 @@ class ArtistCreateView extends JFrame {
         addressTextField = new JTextField(20);
         websiteTextField = new JTextField(20);
         
-        // creating Create Account button
+        // button
         JButton createArtist = new JButton("Create Artist");
         createArtist.addActionListener((ActionListener) controller);
         createArtist.setActionCommand("create-artist");

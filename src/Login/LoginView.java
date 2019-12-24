@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 public class LoginView extends JFrame {
     
-    // creating properties to make username and password accesible for other parts of the program
+    // properties
     private JTextField usernameTextField;
     private JPasswordField passwordTextField; 
     // controller
@@ -21,7 +21,6 @@ public class LoginView extends JFrame {
     
     // constructor receives a LoginController class
     public LoginView(LoginController controller) {
-        // Putting the reference of the controller in the local reference
         this.controller = controller;
         // calling methods to make the window or the view
         attributesSetter();
@@ -41,10 +40,6 @@ public class LoginView extends JFrame {
         JPanel panel = new JPanel();
         this.add(panel);
         
-        // setting layout
-        //BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        //panel.setLayout(boxLayout);
-        
         // creating labels and textfields
         JLabel usernameLabel, passwordLabel;
         usernameLabel = new JLabel("Username");  
@@ -63,7 +58,6 @@ public class LoginView extends JFrame {
         JButton registerButton = new JButton("Register");
         registerButton.addActionListener((ActionListener) controller);
         registerButton.setActionCommand("register");
-        
         
         panel.add(usernameLabel);
         panel.add(usernameTextField);
@@ -85,7 +79,6 @@ public class LoginView extends JFrame {
         return usernameTextField.getText();
     }
     public String getPassword(){
-        
         // converting password into string to pick the password value
         String passwordAsString = String.valueOf(passwordTextField.getPassword());
         return passwordAsString;

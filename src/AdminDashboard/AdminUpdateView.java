@@ -13,23 +13,20 @@ import javax.swing.JTextField;
 
 class AdminUpdateView extends JFrame {
     
-    // creating properties to make values accesible for other parts of the program
+    // properties
     private JTextField firstNameTextField;
     private JTextField lastNameTextField;
     private JTextField usernameTextField;
     private JTextField emailTextField;
     private JTextField addressTextField;
     private JPasswordField passwordTextField;
-    
     private User editUser;
     
     // controller
     private AdminDashboardController controller;
     
-    // constructor receives a Controller class
+    // constructor receives a Controller class and and instance of user
     public AdminUpdateView(AdminDashboardController controller, User editUser) {
-        
-        // Putting the reference of the controller in the local reference
         this.controller= controller;
         this.editUser = editUser;
         
@@ -67,7 +64,7 @@ class AdminUpdateView extends JFrame {
         addressTextField = new JTextField(this.editUser.getAddress(), 20);
         passwordTextField = new JPasswordField (this.editUser.getPassword(), 20);
         
-        // creating Create Account button
+        // button
         JButton registerButton = new JButton("Update Admin");
         registerButton.addActionListener((ActionListener) controller);
         registerButton.setActionCommand("update-admin");
@@ -116,7 +113,7 @@ class AdminUpdateView extends JFrame {
         return passwordAsString;
     }
 
-    // setter
+    // setters
     public void setFirstName(String newFirstName) {
         firstNameTextField.setText(newFirstName);
     

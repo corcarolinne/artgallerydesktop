@@ -20,11 +20,11 @@ public class Art {
     public Art() {
         
     }
-    
     public Art(int artID) {
         this.artID = artID;
     }
 
+    
     // getters
     public int getArtID() {
        return this.artID;

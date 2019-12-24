@@ -14,21 +14,17 @@ import javax.swing.JTextField;
 
 public class SearchResultsView extends JFrame {
     
-    // controller
+    // properties
     private CustomerDashboardController controller;
-    
     private String[][] searchData;
     
-    // constructor receives a Controller class
+    // constructor receives a Controller class and a 2d array with data for search table
     public SearchResultsView(CustomerDashboardController controller, String[][] searchData) {
         // Putting the reference of the controller in the local reference
         this.controller= controller;
         this.searchData = searchData;
-        // calling methods to make the window or the view
-        this.showView();
-        
-        
-         
+        // calling methods to make the view
+        this.showView(); 
     }
     
     public void showView() {
@@ -49,16 +45,13 @@ public class SearchResultsView extends JFrame {
     private void components(){
         JPanel panel = new JPanel();
         this.add(panel);
-        
-        
-        
+  
         // table header
          String[] header = {"Art ID","Title", "Artist ID","Artist First Name", "Artist Last Name", "Type"};
         
         // table for search
         JTable searchTable = new JTable(this.searchData, header);
         panel.add(searchTable);
-        
         
         JScrollPane scroll = new JScrollPane(searchTable);
         panel.add(scroll); 
@@ -72,7 +65,6 @@ public class SearchResultsView extends JFrame {
         this.repaint();
     }
 
-    
     public void setSearchData(String[][] searchData) {
         this.searchData = searchData;
     }

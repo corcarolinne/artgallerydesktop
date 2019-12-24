@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class RegisterView extends JFrame {
     
-    // creating properties to make values accesible for other parts of the program
+    // properties
     private JTextField firstNameTextField;
     private JTextField lastNameTextField;
     private JTextField usernameTextField;
@@ -25,8 +25,7 @@ public class RegisterView extends JFrame {
     
     // constructor receives a Controller class
     public RegisterView(RegisterController controller) {
-        
-        // Putting the reference of the controller in the local reference
+
         this.controller= controller;
         
         // calling methods to make the window or the view

@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 public class RegisterController implements ActionListener {
     
-    // This class has to have a reference to all elements of the program
     RegisterModel model;
     RegisterView view;
     
@@ -19,14 +18,11 @@ public class RegisterController implements ActionListener {
         model = new RegisterModel();
     }
     
-    
+    // action listener
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        // AFTER THE USER INFORMATION HAS BEEN GATHERED FROM THE VIEW,
-        // NOW WE CAN GO AND DO WHAT EACH BUTTON IS SUPPOSED TO DO
-        
-        // When the button is clicked...
+     
+        // when register button is clicked
         if(e.getActionCommand().equals("register")){
             
         // getting values from view  
@@ -40,8 +36,9 @@ public class RegisterController implements ActionListener {
         // Create an instance of the user class with the data collated
         User newUser = new User(firstName, lastName, username, email, address, password, false);
         
-        // create a model for 
+        // calling method from model
         model.register(newUser);
+        
         view.dispose();
         new LoginController();
             
